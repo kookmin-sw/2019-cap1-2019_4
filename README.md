@@ -38,8 +38,14 @@
 팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
 
 ### 4. 사용법
+* Pull requests
+1. branch에서 작업 후 일정 작업이 완성된 후 작성, commit마다 request보내지 않기.
+2. 작업한 내용의 설명 및 변경 사항 기록과 함께 request
 
-소스코드제출시 설치법이나 사용법을 작성하세요.
+* Rules for creating folder / file / branch names
+1. 영어 소문자 사용,  공백이 필요한 경우 _(underscore)사용
+2. 포함되는 내용을 이해할 수 있도록 naming
+
 
 ### 5. 기타
 
