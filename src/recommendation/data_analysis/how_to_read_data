@@ -1,0 +1,626 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# jupyter 사용방법\n",
+    "\n",
+    "실행은 block 별로 된다!! 그래서 하나하나 끊어서 할 수 있다!!! \n",
+    "\n",
+    "실행은 위에서 세모랑 작대기 붙어있는 것 눌러서 해도되지만 \n",
+    "\n",
+    "shift + enter치면 바로됨!! 기억하기!!\n",
+    "\n",
+    "다른 단축키는 help -> keyboard shortcuts에 있음!!"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pandas import DataFrame\n",
+    "import pandas as pd\n",
+    "import json\n",
+    "import csv\n",
+    "import numpy as np\n",
+    "import re"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "#csv파일 읽는 것은 read_csv로 \n",
+    "data_aisles = pd.read_csv(\"./capstone_data/aisles.csv\")\n",
+    "data_departments = pd.read_csv(\"./capstone_data/departments.csv\")\n",
+    "data_orders = pd.read_csv(\"./capstone_data/orders.csv\")\n",
+    "data_product = pd.read_csv(\"./capstone_data/products.csv\")\n",
+    "data_order_products = pd.read_csv(\"./capstone_data/order_products__prior.csv\")\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "unique한 aisle 갯수 :  134\n"
+     ]
+    }
+   ],
+   "source": [
+    "#데이터에서 aisle field에 존재하는 unique한 데이터 갯수 확인하고 싶을 때\n",
+    "print(\"unique한 aisle 갯수 : \"),\n",
+    "print(len(data_aisles.aisle.unique()))  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#데이터 앞에 5개만 보는 것 .head() , 마지막 5개만 보고싶으면 .tail() 사용, []괄호 안에 범위 설정\n",
+    "#data_aisles.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>order_id</th>\n",
+       "      <th>product_id</th>\n",
+       "      <th>add_to_cart_order</th>\n",
+       "      <th>reordered</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>2</td>\n",
+       "      <td>33120</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>28985</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>9327</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>2</td>\n",
+       "      <td>45918</td>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>2</td>\n",
+       "      <td>30035</td>\n",
+       "      <td>5</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   order_id  product_id  add_to_cart_order  reordered\n",
+       "0         2       33120                  1          1\n",
+       "1         2       28985                  2          1\n",
+       "2         2        9327                  3          0\n",
+       "3         2       45918                  4          1\n",
+       "4         2       30035                  5          0"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data_order_products.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "total number of records :  134\n"
+     ]
+    }
+   ],
+   "source": [
+    "# dataframe의 전체 record수 확인\n",
+    "print(\"total number of records : \"),\n",
+    "print(data_aisles.shape[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "total number of records :  21\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"total number of records : \"),\n",
+    "print(data_departments.shape[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "total number of records :  32434489\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"total number of records : \"),\n",
+    "print(data_order_products.shape[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3421083"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#Unique한 데이터 갯수\n",
+    "len(data_orders.order_id.unique())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "24"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len(data_orders.order_hour_of_day.unique())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 특정 위치에 있는 record보는 방법"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>order_id</th>\n",
+       "      <th>product_id</th>\n",
+       "      <th>add_to_cart_order</th>\n",
+       "      <th>reordered</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>2</td>\n",
+       "      <td>33120</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>28985</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>2</td>\n",
+       "      <td>9327</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>2</td>\n",
+       "      <td>45918</td>\n",
+       "      <td>4</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>2</td>\n",
+       "      <td>30035</td>\n",
+       "      <td>5</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>2</td>\n",
+       "      <td>17794</td>\n",
+       "      <td>6</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>2</td>\n",
+       "      <td>40141</td>\n",
+       "      <td>7</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>2</td>\n",
+       "      <td>1819</td>\n",
+       "      <td>8</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>2</td>\n",
+       "      <td>43668</td>\n",
+       "      <td>9</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>3</td>\n",
+       "      <td>33754</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   order_id  product_id  add_to_cart_order  reordered\n",
+       "0         2       33120                  1          1\n",
+       "1         2       28985                  2          1\n",
+       "2         2        9327                  3          0\n",
+       "3         2       45918                  4          1\n",
+       "4         2       30035                  5          0\n",
+       "5         2       17794                  6          1\n",
+       "6         2       40141                  7          1\n",
+       "7         2        1819                  8          1\n",
+       "8         2       43668                  9          0\n",
+       "9         3       33754                  1          1"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data_order_products[0:10]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "aisle_id               98\n",
+       "aisle       juice nectars\n",
+       "Name: 97, dtype: object"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#97번째 데이터보기\n",
+    "data_aisles.loc[97]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "aisle_id        26\n",
+       "aisle       coffee\n",
+       "Name: 25, dtype: object"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data_aisles.loc[25]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## # 특정 컬럼에서 특정 값이 있는 record만 보는 방법"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>product_id</th>\n",
+       "      <th>product_name</th>\n",
+       "      <th>aisle_id</th>\n",
+       "      <th>department_id</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>Robust Golden Unsweetened Oolong Tea</td>\n",
+       "      <td>94</td>\n",
+       "      <td>7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>7</td>\n",
+       "      <td>Pure Coconut Water With Orange</td>\n",
+       "      <td>98</td>\n",
+       "      <td>7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>10</td>\n",
+       "      <td>Sparkling Orange Juice &amp; Prickly Pear Beverage</td>\n",
+       "      <td>115</td>\n",
+       "      <td>7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>11</td>\n",
+       "      <td>Peach Mango Juice</td>\n",
+       "      <td>31</td>\n",
+       "      <td>7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>19</th>\n",
+       "      <td>20</td>\n",
+       "      <td>Pomegranate Cranberry &amp; Aloe Vera Enrich Drink</td>\n",
+       "      <td>98</td>\n",
+       "      <td>7</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    product_id                                    product_name  aisle_id  \\\n",
+       "2            3            Robust Golden Unsweetened Oolong Tea        94   \n",
+       "6            7                  Pure Coconut Water With Orange        98   \n",
+       "9           10  Sparkling Orange Juice & Prickly Pear Beverage       115   \n",
+       "10          11                               Peach Mango Juice        31   \n",
+       "19          20  Pomegranate Cranberry & Aloe Vera Enrich Drink        98   \n",
+       "\n",
+       "    department_id  \n",
+       "2               7  \n",
+       "6               7  \n",
+       "9               7  \n",
+       "10              7  \n",
+       "19              7  "
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "data_product.loc[data_product['department_id'] == 7].head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style>\n",
+       "    .dataframe thead tr:only-child th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: left;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>aisle_id</th>\n",
+       "      <th>aisle</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>4</td>\n",
+       "      <td>instant foods</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   aisle_id          aisle\n",
+       "3         4  instant foods"
+      ]
+     },
+     "execution_count": 92,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data_aisles.loc[data_aisles['aisle']=='instant foods']"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
