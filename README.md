@@ -98,6 +98,9 @@ blue8957@gmail.com
 Rekonition을 이용한 얼굴 학습 및 Jetson과의 연동 시스템 구축
 Lambda Function을 이용한 S3-Rekognition-EC2의 연결
 
+
+
+
 odobenuseKR@gmail.com
 ```
 ### 4. 사용법
