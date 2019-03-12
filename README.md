@@ -2,34 +2,25 @@
 2019년 국민대학교 소프트웨어학부 캡스톤 디자인 프로젝트
 
 
-- readme.md 수정.
 
-- index.md 예시보고 수정.
+### 1. 프로젝트 소개 
 
-- 수정후 팀페이지 확인하여 점검.
+<img align="left" width="20%" height="20%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/logo.png"> 
 
-**팀페이지 주소** -> https://kookmin-sw.github.io/ `{{자신의 리파지토리 아이디}}`
-
-**예시)** 1조  https://kookmin-sw.github.io/2018-cap-1
-
-
-### 1. 프로젝트 소개
-
- Flex Ads는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다.<br/>
- 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 서비스로 회원 정보를 받아 고객 맞춤 광고를 송출합니다. 이 프로젝트를 통해 오프라인 마켓의 회원들과 기업 모두에게 긍정적인 효과가 나타날 것을 기대합니다.
+ &nbsp;FlexAds는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
 <br/>
+ &nbsp; FlexAds is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
-프로젝트 시나리오<br/>
-<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> <br/>
+<br/>
+**프로젝트 시나리오**<br/>
+<img align="center" width="80%" height="80%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
+<br/>
 
 ### 2. 소개 영상
 
 프로젝트 소개하는 영상을 추가하세요
 
 ### 3. 팀 소개
-
-팀을 소개하세요.
-
 
 *  민지수<br/>
 
@@ -110,44 +101,16 @@ blue8957@gmail.com
 ```
 
 ### 4. 사용법
+* 회의록 작성
+1. markdown으로 회의록 양식에 맞추어 작성하기
+2. /doc/회의록/에 회의록작성
+3. preview로 확인하여 불필요한 commit 방지하기
+
 * Pull requests
-1. branch에서 작업 후 일정 작업이 완성된 후 작성, commit마다 request보내지 않기.
+1. branch에서 작업 후 일정 작업이 완성된 후 작성, commit마다 request보내지 않기
 2. 작업한 내용의 설명 및 변경 사항 기록과 함께 request
 
 * Rules for creating folder / file / branch names
 1. 영어 소문자 사용,  공백이 필요한 경우 _(underscore)사용
 2. 포함되는 내용을 이해할 수 있도록 naming
 
-
-### 5. 기타
-
-추가적인 내용은 자유롭게 작성하세요.
-
-
-## Markdown을 사용하여 내용꾸미기
-
-Markdown은 작문을 스타일링하기위한 가볍고 사용하기 쉬운 구문입니다. 여기에는 다음을위한 규칙이 포함됩니다.
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-자세한 내용은 [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Support or Contact
-
-readme 파일 생성에 추가적인 도움이 필요하면 [도움말](https://help.github.com/articles/about-readmes/) 이나 [contact support](https://github.com/contact) 을 이용하세요.
