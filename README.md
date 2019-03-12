@@ -13,10 +13,14 @@
 **예시)** 1조  https://kookmin-sw.github.io/2018-cap-1
 
 
-### 1. 프로잭트 소개
+### 1. 프로젝트 소개
 
-Flex Ads는 회원제 오프라인 마켓에서 얼굴 인식을 이용하여 개인 또는 그룹에게 맞춤형 광고를 송출하는 프로젝트입니다. <br/>
-얼굴 인식과 광고 추천 기능으로 나뉘며 모듈형 AI 슈퍼컴퓨터 'NDIVIA Jetson TX1와 TX2'를 이용하여 실시간으로 얼굴을 인식하고 회원의 정보를 추천 시스템과 연결합니다.<br/>
+ Flex Ads는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다.<br/>
+ 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 서비스로 회원 정보를 받아 고객 맞춤 광고를 송출합니다. 이 프로젝트를 통해 오프라인 마켓의 회원들과 기업 모두에게 긍정적인 효과가 나타날 것을 기대합니다.
+<br/>
+
+프로젝트 시나리오<br/>
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> <br/>
 
 ### 2. 소개 영상
 
@@ -75,19 +79,6 @@ wldud8463@kookmin.ac.kr
 ```
 
 
-*  황수진<br/>
-
-<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/황수진.jpg">
-
-```
-TX1 / TX2 설정 및 관리
-얼굴 인식 서비스 개발 
-AWS S3 저장소 데이터 관리
-
-
-blue8957@gmail.com
-```
-
 *  이성재<br/>
 
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A2.jpg">
@@ -103,6 +94,21 @@ Lambda Function을 이용한 S3-Rekognition-EC2의 연결
 
 odobenuseKR@gmail.com
 ```
+
+
+*  황수진<br/>
+
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/황수진.jpg">
+
+```
+TX1 / TX2 설정 및 관리
+얼굴 인식 서비스 개발 
+AWS S3 저장소 데이터 관리
+
+
+blue8957@gmail.com
+```
+
 ### 4. 사용법
 * Pull requests
 1. branch에서 작업 후 일정 작업이 완성된 후 작성, commit마다 request보내지 않기.
