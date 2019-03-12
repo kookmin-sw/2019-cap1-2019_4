@@ -1,17 +1,7 @@
 # FlexAds
 2019년 국민대학교 소프트웨어학부 캡스톤 디자인 프로젝트
 
-## 팀원
 
-*  민지수
-
-*  유지원
-
-*  윤지영 
-
-*  황수진
-
-*  이성재
 - readme.md 수정.
 
 - index.md 예시보고 수정.
@@ -25,7 +15,8 @@
 
 ### 1. 프로잭트 소개
 
-프로젝트
+Flex Ads는 회원제 오프라인 마켓에서 얼굴 인식을 이용하여 개인 또는 그룹에게 맞춤형 광고를 송출하는 프로젝트입니다. <br/>
+얼굴 인식과 광고 추천 기능으로 나뉘며 모듈형 AI 슈퍼컴퓨터 'NDIVIA Jetson TX1와 TX2'를 이용하여 실시간으로 얼굴을 인식하고 회원의 정보를 추천 시스템과 연결합니다.<br/>
 
 ### 2. 소개 영상
 
@@ -35,8 +26,83 @@
 
 팀을 소개하세요.
 
-팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
 
+*  민지수<br/>
+
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/민지수.jpg">
+
+```
+Project Leader
+AWS RDS와 DynamoDB 데이터 처리 및 관리
+추천 시스템 구조 설계 및 알고리즘 구현 관리
+Serverless 기반의 광고 송출 시스템 구현(얼굴 인식 결과와 추천 시스템 연동)
+
+
+
+jsmin0415@gmail.com
+```
+
+
+*  유지원<br/>
+
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/유지원.jpg">
+
+```
+사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 상품 담당
+AWS RDS와 DynamoDB 데이터 처리 및 관리
+Feature Generator
+
+
+
+
+jiwon72674@gmail.com
+```
+
+
+*  윤지영 <br/>
+
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/윤지영.jpg">
+
+```
+사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 사용자 담당
+회의록 및 문서 작성 
+
+
+
+
+
+wldud8463@kookmin.ac.kr
+```
+
+
+*  황수진<br/>
+
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/황수진.jpg">
+
+```
+TX1 / TX2 설정 및 관리
+얼굴 인식 서비스 개발 
+AWS S3 저장소 데이터 관리
+
+
+blue8957@gmail.com
+```
+
+*  이성재<br/>
+
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A2.jpg">
+
+
+```
+얼굴 인식을 위한 시스템 설계
+Rekonition을 이용한 얼굴 학습 및 Jetson과의 연동 시스템 구축
+Lambda Function을 이용한 S3-Rekognition-EC2의 연결
+
+
+
+
+odobenuseKR@gmail.com
+```
 ### 4. 사용법
 * Pull requests
 1. branch에서 작업 후 일정 작업이 완성된 후 작성, commit마다 request보내지 않기.
