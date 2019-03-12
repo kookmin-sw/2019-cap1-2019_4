@@ -90,7 +90,8 @@ blue8957@gmail.com
 
 *  이성재<br/>
 
-<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/이성재.jpg">
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A2.jpg">
+
 
 ```
 얼굴 인식을 위한 시스템 설계
