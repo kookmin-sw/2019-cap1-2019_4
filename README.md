@@ -12,56 +12,49 @@
  &nbsp; FlexAds is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
 <br/>
-**프로젝트 시나리오**<br/>
+<b>프로젝트 시나리오</b><br/>
 <img align="center" width="80%" height="80%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
 <br/>
 
 ### 2. 소개 영상
+사진을 클릭하면 Youtube로 넘어갑니다.<br/>
+[![image](doc/pictures/img.JPG)](https://www.youtube.com/c)
 
-프로젝트 소개하는 영상을 추가하세요
 
 ### 3. 팀 소개
-
-*  민지수<br/>
 
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/민지수.jpg">
 
 ```
+민지수
 Project Leader
 AWS RDS와 DynamoDB 데이터 처리 및 관리
 추천 시스템 구조 설계 및 알고리즘 구현 관리
 Serverless 기반의 광고 송출 시스템 구현(얼굴 인식 결과와 추천 시스템 연동)
 
 
-
 jsmin0415@gmail.com
 ```
-
-
-*  유지원<br/>
 
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/유지원.jpg">
 
 ```
+유지원
 사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 상품 담당
 AWS RDS와 DynamoDB 데이터 처리 및 관리
 Feature Generator
 
 
 
-
 jiwon72674@gmail.com
 ```
-
-
-*  윤지영 <br/>
 
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/윤지영.jpg">
 
 ```
+윤지영
 사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 사용자 담당
 회의록 및 문서 작성 
-
 
 
 
@@ -69,17 +62,13 @@ jiwon72674@gmail.com
 wldud8463@kookmin.ac.kr
 ```
 
-
-*  이성재<br/>
-
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A5%E1%86%BC%E1%84%8C%E1%85%A2.jpg">
 
-
 ```
+이성재
 얼굴 인식을 위한 시스템 설계
 Rekonition을 이용한 얼굴 학습 및 Jetson과의 연동 시스템 구축
 Lambda Function을 이용한 S3-Rekognition-EC2의 연결
-
 
 
 
@@ -87,30 +76,16 @@ odobenuseKR@gmail.com
 ```
 
 
-*  황수진<br/>
-
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/황수진.jpg">
 
 ```
+황수진
 TX1 / TX2 설정 및 관리
 얼굴 인식 서비스 개발 
 AWS S3 저장소 데이터 관리
-
 
 blue8957@gmail.com
 ```
 
 ### 4. 사용법
-* 회의록 작성
-1. markdown으로 회의록 양식에 맞추어 작성하기
-2. /doc/회의록/에 회의록작성
-3. preview로 확인하여 불필요한 commit 방지하기
-
-* Pull requests
-1. branch에서 작업 후 일정 작업이 완성된 후 작성, commit마다 request보내지 않기
-2. 작업한 내용의 설명 및 변경 사항 기록과 함께 request
-
-* Rules for creating folder / file / branch names
-1. 영어 소문자 사용,  공백이 필요한 경우 _(underscore)사용
-2. 포함되는 내용을 이해할 수 있도록 naming
-
+* 기타 기록과 문서는 wiki를 사용합니다.
