@@ -13,7 +13,7 @@
 
 <br/>
 <b>프로젝트 시나리오</b><br/>
-<img align="center" width="80%" height="80%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
+<img align="center" width="80%" height="80%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png"> 
 <br/>
 
 ### 2. 소개 영상
