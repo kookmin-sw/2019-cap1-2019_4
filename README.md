@@ -1,4 +1,4 @@
-# FlexAds
+# Flex Ads
 2019년 국민대학교 소프트웨어학부 캡스톤 디자인 프로젝트
 
 
@@ -18,7 +18,7 @@
 
 ### 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
-[![image](doc/pictures/img.JPG)](https://www.youtube.com/c)
+[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png)](https://youtu.be/yIW5yL--zU8)<br/>
 
 
 ### 3. 팀 소개
