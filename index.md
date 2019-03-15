@@ -5,7 +5,7 @@
 
 ## 1. 프로젝트 소개 
 
-<img align="left" width="20%" height="20%" src="/doc/회의록/pictures/logo.png"> 
+<img align="left" width="20%" height="20%" src="/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/logo.png"> 
 
  &nbsp;FlexAds는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
 <br/><br/>
@@ -13,7 +13,7 @@
 
 <br/>
 <b>프로젝트 시나리오</b><br/><br/>
-<img align="center" width="100%" height="100%" src="/doc/회의록/pictures/flexadsscenario.png"> 
+<img align="center" width="100%" height="100%" src="/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexadsscenario.png"> 
 <br/>
 
 ## 2. 소개 영상
@@ -23,7 +23,7 @@
 
 ## 3. 팀 소개
 
-<img align="left" width="15%" height="15%" src="/doc/회의록/pictures/prof_leeky.jpg">
+<img align="left" width="15%" height="15%" src="/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/prof_leeky.jpg">
 
 ```
 이경용 교수님
@@ -35,7 +35,7 @@ leeky@kookmin.ac.kr
 ```
 
 
-<img align="left" width="15%" height="15%" src="/doc/회의록/pictures/민지수.jpg">
+<img align="left" width="15%" height="15%" src="/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%EB%AF%BC%EC%A7%80%EC%88%98.jpg">
 
 ```
 민지수
@@ -48,7 +48,7 @@ Serverless 기반의 광고 송출 시스템 구현(얼굴 인식 결과와 추�
 jsmin0415@gmail.com
 ```
 
-<img align="left" width="15%" height="15%" src="/doc/회의록/pictures/유지원.jpg">
+<img align="left" width="15%" height="15%" src="/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%EC%9C%A0%EC%A7%80%EC%9B%90.jpg">
 
 ```
 유지원
@@ -61,7 +61,7 @@ Feature Generator
 jiwon72674@gmail.com
 ```
 
-<img align="left" width="15%" height="15%" src="/doc/회의록/pictures/윤지영.jpg">
+<img align="left" width="15%" height="15%" src="/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%EC%9C%A4%EC%A7%80%EC%98%81.jpg">
 
 ```
 윤지영
@@ -88,7 +88,7 @@ odobenuseKR@gmail.com
 ```
 
 
-<img align="left" width="15%" height="15%" src="/doc/회의록/pictures/황수진.jpg">
+<img align="left" width="15%" height="15%" src="/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/%ED%99%A9%EC%88%98%EC%A7%84.jpg">
 
 ```
 황수진
