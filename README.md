@@ -24,6 +24,18 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
 
 ## 3. 팀 소개
 
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/prof_leeky.jpg">
+
+```
+이경용 교수님
+
+캡스톤 디자인 프로젝트 지도교수님
+프로젝트 검수
+
+leeky@kookmin.ac.kr
+```
+
+
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/민지수.jpg">
 
 ```
