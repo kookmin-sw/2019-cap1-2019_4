@@ -1,27 +1,39 @@
 # Flex Ads
 2019년 국민대학교 소프트웨어학부 캡스톤 디자인 프로젝트
+<br/><br/>
 
 
-
-### 1. 프로젝트 소개 
+## 1. 프로젝트 소개 
 
 <img align="left" width="20%" height="20%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/logo.png"> 
 
  &nbsp;FlexAds는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
-<br/>
+<br/><br/>
  &nbsp; FlexAds is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
 <br/>
-<b>프로젝트 시나리오</b><br/>
-<img align="center" width="80%" height="80%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
+<b>프로젝트 시나리오</b><br/><br/>
+<img align="center" width="100%" height="100%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
 <br/>
 
-### 2. 소개 영상
+## 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
-[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](https://youtu.be/yIW5yL--zU8)<br/>
+[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](https://youtu.be/yIW5yL--zU8)<br/><br/>
 
 
-### 3. 팀 소개
+## 3. 팀 소개
+
+<img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/prof_leeky.jpg">
+
+```
+이경용 교수님
+
+캡스톤 디자인 프로젝트 지도교수님
+프로젝트 검수
+
+leeky@kookmin.ac.kr
+```
+
 
 <img align="left" width="15%" height="15%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/민지수.jpg">
 
@@ -87,5 +99,5 @@ AWS S3 저장소 데이터 관리
 blue8957@gmail.com
 ```
 
-### 4. 사용법
+## 4. 사용법
 * 기타 기록과 문서는 wiki를 사용합니다.
