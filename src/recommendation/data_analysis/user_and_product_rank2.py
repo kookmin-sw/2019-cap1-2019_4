@@ -29,7 +29,6 @@ def rank_func(prior_and_orders):
     prior_and_orders2=pd.merge(prior_and_orders, count, how='inner')
     return prior_and_orders2.drop(['count'], axis=1)
 
-
 print(rank_func(order_prior).head())
 
 
