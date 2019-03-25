@@ -51,5 +51,3 @@ prod=prod_order_rank_func(prior)
 
 print(prod.head())
 
-
-
