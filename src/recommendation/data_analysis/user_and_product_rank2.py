@@ -49,4 +49,3 @@ def prod_order_rank_func(prior_and_orders):
 prod=prod_order_rank_func(rank_func(order_prior))
 
 print(prod.head())
-
