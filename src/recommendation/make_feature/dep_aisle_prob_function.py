@@ -1,3 +1,6 @@
+# basic feature : 대분류, 소분류, 요일, 시간에 대한 구매 확률
+# ex : 대분류 육류의 재구매 확률 = 육류의 재구매 기록의 수(reordered=1) / 육류의 구매 기록수(reordered=0,1)
+
 import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import seaborn as sns
@@ -19,99 +22,94 @@ order_prior_product = pd.merge(order_prior, products_df, how='inner', on=['produ
 
 # nan값은 0으로 변경
 order_prior_product = order_prior_product.fillna(0)
-order_prior_product
+
 
 """ department probability function
 @ order_prior_product : order, prior, product data를 merge한 table
-@ n_reorder: 재구매 기록의 수
-@ reorder_dep : department별 재구매 수를 표현한 series
-@ df_re_dep : reorder_dep의 dataframe화
-@ dic : department와 department의 확률을 표현한 series
-@ df_ : dic의 dataframe화
-@ dep_prob_table : order_prior_product와 df_를 merge한 것
+@ count : department를 기준으로 재구매 기록의 수와 아닌 것의 수를 count라는 새로운 colunm에 기록한 table
+@ temp : count의 series version
+@ dep_prob : department를 기준으로 재구매 된 비율과 그렇지 않은 기록의 확률을 구한 table
+                    ex : 육류의 재구매 기록 수 / 육류의 총 구매 기록 수 = 육류(특정 대분류)가 재구매 될 확률
+@ tmp2 : dep_prob에서 reordered가 1인 행만 뽑아서 기록한 table
+@ dep_prob_table : multi-index에 있는 index를 column으로 보낸 tmp2와 처음 파라미터로 들어온 table을 merge한 것
+                   department_id별 재구매 확률이 새롭게 포함됨
 """
 
 def dep_prob (order_prior_product):
-    reorder=order_prior_product.loc[order_prior_product['reordered']==1]
-    #reorder
+    count = pd.DataFrame({'count' : order_prior_product.groupby(["department_id","reordered"]).size()}).reset_index()
+    temp = count.groupby(['department_id', 'reordered'])['count'].sum().rename('dep_prob')
+    dep_prob =(temp /temp.groupby(level=0).sum())
 
-    n_reorder = len(reorder)
-    #n_reorder
-
-    reorder_dep = reorder.department_id.value_counts()
-
-    df_re_dep = pd.DataFrame(reorder_dep)
-    #df_re_dep
-
-    dic = {"department_id": df_re_dep.index, "prob":(df_re_dep["department_id"]/n_reorder)}
-    df_ = pd.DataFrame(dic)
-    #df_
-
-    dep_prob_table = pd.merge(order_prior_product, df_, how='inner', on=['department_id'])
-
-    return dep_prob_table.head(5)
-
+    # 재구매 된 것의 확률만 필요함 => reordered가 1인 것
+    tmp2 = pd.DataFrame(dep_prob).xs(1,level='reordered')
+    tmp2.reset_index(inplace=True)
+    dep_prob_table = pd.merge(order_prior_product, tmp2, how='inner', on=['department_id'])
+    return dep_prob_table
 
 """ aisle probability function
 @ order_prior_product : order, prior, product data를 merge한 table
-@ n_reorder: 재구매 기록의 수
-@ reorder_aisle : aisle별 재구매 수를 표현한 series
-@ df_re_aisle : reorder_aisle의 dataframe화
-@ dic : aisle와 aisle의 확률을 표현한 series
-@ df_ : dic의 dataframe화
-@ aisle_prob_table : order_prior_product와 df_를 merge한 것
+@ count : aisle를 기준으로 재구매 기록의 수와 아닌 것의 수를 count라는 새로운 colunm에 기록한 table
+@ temp : count의 series version
+@ aisle_prob : aisle를 기준으로 재구매 된 비율과 그렇지 않은 기록의 확률을 구한 table
+                    ex : 탄산음료류의 재구매 기록 수 / 탄산음료류의 총 구매 기록 수 = 탄산음료(특정 소분류)가 재구매 될 확률
+@ tmp2 : aisle_prob에서 reordered가 1인 행만 뽑아서 기록한 table
+@ aisle_prob_table : multi-index에 있는 index를 column으로 보낸 tmp2와 처음 파라미터로 들어온 table을 merge한 것
+                   aisle_id별 재구매 확률이 새롭게 포함됨
 """
+
 def aisle_prob(order_prior_product):
-    reorder=order_prior_product.loc[order_prior_product['reordered']==1]
-    #reorder
+    count = pd.DataFrame({'count' : order_prior_product.groupby(["aisle_id","reordered"]).size()}).reset_index()
+    temp = count.groupby(['aisle_id', 'reordered'])['count'].sum().rename('aisle_prob')
+    aisle_prob =(temp /temp.groupby(level=0).sum())
 
-    n_reorder = len(reorder)
-    #n_reorder
-
-    reorder_aisle = reorder.aisle_id.value_counts()
-
-    df_re_aisle = pd.DataFrame(reorder_aisle)
-    #df_re_dep
-
-    dic = {"aisle_id": df_re_aisle.index, "prob":(df_re_aisle["aisle_id"]/n_reorder)}
-    df_ = pd.DataFrame(dic)
-    #df_
-
-    aisle_prob_table = pd.merge(order_prior_product, df_, how='inner', on=['aisle_id'])
-
-    return aisle_prob_table.head(5)
+    # 재구매 된 것의 확률만 필요함 => reordered가 1인 것
+    tmp2 = pd.DataFrame(aisle_prob).xs(1,level='reordered')
+    tmp2.reset_index(inplace=True)
+    aisle_prob_table = pd.merge(order_prior_product, tmp2, how='inner', on=['aisle_id'])
+    return aisle_prob_table
 
 
 """ dow probability function
 @ order_prior_product : order, prior, product data를 merge한 table
-@ n_reorder: 재구매 기록의 수
-@ reorder_dow : dow별 재구매 수를 표현한 series
-@ df_re_dow : reorder_dow의 dataframe화
-@ dic : dow와 dow의 확률을 표현한 series
-@ df_ : dic의 dataframe화
-@ dow_prob_table : order_prior_product와 df_를 merge한 것
+@ count : order_dow를 기준으로 재구매 기록의 수와 아닌 것의 수를 count라는 새로운 colunm에 기록한 table
+@ temp : count의 series version
+@ dow_prob : order_dow를 기준으로 재구매 된 비율과 그렇지 않은 기록의 확률을 구한 table
+                    ex : 월요일의 재구매 기록 수 / 월요일의 총 구매 기록 수 = 월요일의 재구매 확률
+@ tmp2 : dow_prob에서 reordered가 1인 행만 뽑아서 기록한 table
+@ dow_prob_table : multi-index에 있는 index를 column으로 보낸 tmp2와 처음 파라미터로 들어온 table을 merge한 것
+                   order_dow별 재구매 확률이 새롭게 포함됨
 """
+
 def dow_prob(order_prior_product):
-    reorder=order_prior_product.loc[order_prior_product['reordered']==1]
-    #reorder
+    count = pd.DataFrame({'count' : order_prior_product.groupby(["order_dow","reordered"]).size()}).reset_index()
+    temp = count.groupby(['order_dow', 'reordered'])['count'].sum().rename('dow_prob')
+    dow_prob =(temp /temp.groupby(level=0).sum())
 
-    n_reorder = len(reorder)
-    #n_reorder
-
-    reorder_dow = reorder.order_dow.value_counts()
-
-    df_re_dow = pd.DataFrame(reorder_dow)
-    #df_re_dep
-
-    dic = {"order_dow": df_re_dow.index, "prob":(df_re_dow["order_dow"]/n_reorder)}
-    df_ = pd.DataFrame(dic)
-    #df_
-
-    dow_prob_table = pd.merge(order_prior_product, df_, how='inner', on=['order_dow'])
-
-    return (dow_prob_table.head(5))
+    # 재구매 된 것의 확률만 필요함 => reordered가 1인 것
+    tmp2 = pd.DataFrame(dow_prob).xs(1,level='reordered')
+    tmp2.reset_index(inplace=True)
+    dow_prob_table = pd.merge(order_prior_product, tmp2, how='inner', on=['order_dow'])
+    return dow_prob_table
 
 
-dep_prob(order_prior_product)
-aisle_prob(order_prior_product)
-dow_prob(order_prior_product)
+""" hour probability function
+@ order_prior_product : order, prior, product data를 merge한 table
+@ count : order_hour_of_day를 기준으로 재구매 기록의 수와 아닌 것의 수를 count라는 새로운 colunm에 기록한 table
+@ temp : count의 series version
+@ hour_prob : order_hour_of_day를 기준으로 재구매 된 비율과 그렇지 않은 기록의 확률을 구한 table
+                    ex : 월요일의 재구매 기록 수 / 월요일의 총 구매 기록 수 = 월요일의 재구매 확률
+@ tmp2 : hour_prob에서 reordered가 1인 행만 뽑아서 기록한 table
+@ hour_prob_table : multi-index에 있는 index를 column으로 보낸 tmp2와 처음 파라미터로 들어온 table을 merge한 것
+                   order_hour_of_day별 재구매 확률이 새롭게 포함됨
+"""
+
+def hour_prob(order_prior_product):
+    count = pd.DataFrame({'count' : order_prior_product.groupby(["order_hour_of_day","reordered"]).size()}).reset_index()
+    temp = count.groupby(['order_hour_of_day', 'reordered'])['count'].sum().rename('hour_prob')
+    hor_prob =(temp /temp.groupby(level=0).sum())
+
+    # 재구매 된 것의 확률만 필요함 => reordered가 1인 것
+    tmp2 = pd.DataFrame(hour_prob).xs(1,level='reordered')
+    tmp2.reset_index(inplace=True)
+    hour_prob_table = pd.merge(order_prior_product, tmp2, how='inner', on=['order_hour_of_day'])
+    return hour_prob_table
