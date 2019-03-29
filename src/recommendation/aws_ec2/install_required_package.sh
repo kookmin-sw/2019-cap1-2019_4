@@ -14,4 +14,5 @@ sudo apt-get install python-mysqldb
 # it is not certain to install below package. if connection between DB and ec2 is failed, run this command. 
 # sudo pip install mysql-connector-python-rf
 
-
+#install pandas lib
+pip install pandas
