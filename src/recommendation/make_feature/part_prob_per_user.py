@@ -39,9 +39,6 @@ order_prior_product = pd.merge(order_prior, products_df, how='inner', on=['produ
 #order_prior_product
 
 
-# In[88]:
-
-
 '''
 유저별로 구매 기록을 보고 구매된 대분류 확률을 구하는 함수. 
 각 유저가 어떤 대분류에 대해 살 확률이 높은지 확인
@@ -56,7 +53,7 @@ def dep_prob_per_user(order_prior_product):
     # A.groupby(level=0).sum()
     
     # 대분류의 구매수를 유저의 총 구매수로 나눈다.
-    dep_prob = A/A.groupby(level=0).sum()
+    dep_prob = dep_sum/dep_sum.groupby(level=0).sum()
     
     # change index to column
     dep_prob.reset_index(inplace=True)  
@@ -80,7 +77,7 @@ def aisle_prob_per_user(order_prior_product):
     aisle_sum = pd.DataFrame({'user_aisle_prob': order_prior_product.groupby(['user_id','aisle_id']).size()})
     
     # 대분류의 구매수를 유저의 총 구매수로 나눈다.
-    aisle_prob = A/A.groupby(level=0).sum()
+    aisle_prob = aisle_sum/aisle_sum.groupby(level=0).sum()
     
     # change index to column
     aisle_prob.reset_index(inplace=True)  
@@ -104,7 +101,7 @@ def dow_prob_per_user(order_prior_product):
     dow_sum = pd.DataFrame({'user_dow_prob': order_prior_product.groupby(['user_id','order_dow']).size()})
 
     # 대분류의 구매수를 유저의 총 구매수로 나눈다.
-    dow_prob = A/A.groupby(level=0).sum()
+    dow_prob = dow_sum/dow_sum.groupby(level=0).sum()
     
     # change index to column
     dow_prob.reset_index(inplace=True)  
@@ -125,20 +122,18 @@ def dow_prob_per_user(order_prior_product):
 '''
 def hour_prob_per_user(order_prior_product):    
     # 유저를 기준으로 대분류의 개수 구하기
-    hour_sum = pd.DataFrame({'user_hour_prob': order_prior_product.groupby(['user_id','order_hour']).size()})
+    hour_sum = pd.DataFrame({'user_hour_prob': order_prior_product.groupby(['user_id','order_hour_of_day']).size()})
 
     # 대분류의 구매수를 유저의 총 구매수로 나눈다.
-    hour_prob = A/A.groupby(level=0).sum()
+    hour_prob = hour_sum/hour_sum.groupby(level=0).sum()
     
     # change index to column
     hour_prob.reset_index(inplace=True)  
     
     # 원래 큰 table과 merge하기 : 기준은 사용자와 대분류 2개를 동시에 기준으로! 
-    hour_per_user = pd.merge(order_prior_product, hour_prob, how='inner', on=['user_id', 'order_hour'])
+    hour_per_user = pd.merge(order_prior_product, hour_prob, how='inner', on=['user_id', 'order_hour_of_day'])
     return hour_per_user
 
-
-# In[ ]:
 
 
 
