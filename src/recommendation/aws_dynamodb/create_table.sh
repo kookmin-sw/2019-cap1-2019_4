@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # create table in Dynamodb
 aws dynamodb create-table \
     --table-name Recommendation \
