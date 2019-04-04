@@ -181,6 +181,26 @@ int main( int argc, char** argv )
 			printf("detectnet-camera:  failed to convert from NV12 to RGBA\n");
 
 		int numBoundingBoxes = maxBoxes;
+        
+		// filename with string object
+		// 이미지 데이터를 저장하기 위해 저장될 이미지 파일명을 detect 된 시간으로 지정한다.
+		// 먼저 curTime 을 이용하여 milli 초를 계산하여 milli 변수에 저장한다.
+		timeval curTime;
+		gettimeofday(&curTime, NULL);
+		int milli = curTime.tv_usec / 1000;
+
+		// 현재 시간을 local time 에 맞추어 now 변수에 저장한다.
+		time_t t = time(0);
+		struct tm* now = localtime(&t);
+
+		// 밀리초를 제외한 파일명(년, 월, 일, 시, 분, 초)를 buffer 배열에 저장한다.
+		// strftime 을 이용하여 now 로부터 시간을 가져와 buffer 에 저장한다.
+		char buffer[80];
+		strftime(buffer, 80, "%Y%m%d-%H%M%S", now);
+
+		// 밀리초와 이미지 확장자를 추가하여 filename 배열에 저장한다.
+		char filename[100];
+		sprintf(filename, "%s%d.PNG", buffer, milli);
 
 		// 앞에서 생성한 detectNet 객체인 net 을 이용하여 Capture 된 이미지 객체를 Detect 를 이용해 분석한다.
 		// 이 때, bbCPU 에 물체가 detect 된 좌표를 순차적으로 저장한다.
