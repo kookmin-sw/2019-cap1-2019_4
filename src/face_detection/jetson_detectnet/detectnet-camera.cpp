@@ -158,6 +158,12 @@ int main( int argc, char** argv )
 	// conf 지정값이 있어 필요 없을 것으로 생각되는 코드이다.
 	float confidence = 0.0f;
 
+	// 10초 주기로 image 를 cropping 하여 저장하기 위한 코드이다.
+	// bool 은 milli sec 을 무시하기 위한 것이다.
+	bool time_flag = true;
+	char zero = '0';
+	char one = '1';
+
 	// signal 이 입력되는 동안 계속해서 camera 로부터 streaming 을 입력받는다.
 	while( !signal_recieved )
 	{
@@ -228,7 +234,20 @@ int main( int argc, char** argv )
 				// detect 된 bounding box 부분을 cropping 하여 local 에 filename 으로 저장하는 코드이다.
 				// Cropping 된 이미지를 저장하기 위해 saveCropImageRGBA 함수를 새롭게 loadImage 에 작성하였다.
 				// saveCropImageRGBA 는 saveImageRGBA 와 다르게 좌표를 추가적으로 입력받으며, 해당 위치를 기준으로 이미지를 Cropping 하여 저장한다.
-				saveCropImageRGBA(filename, (float4*)imgRGBA, bb[1], bb[3], bb[0], bb[2], camera->GetWidth(), camera->GetHeight(), 255.0f);
+				
+				// 10초를 주기로 cropping 된 이미지를 저장하기 위하여,
+				// filename 의 sec 부분을 추출해 내어 0의 자리이면 저장하는 방법을 사용한다.
+				// 현재 방법으로는 특정 시점에만 이미지가 저장되기 때문에, 더 정교한 방법의 고안이 필요하다.
+				char now_sec = filename[14];
+				if(now_sec == zero && time_flag == true)
+				{
+					saveCropImageRGBA(filename, (float4*)imgRGBA, bb[1], bb[3], bb[0], bb[2], camera->GetWidth(), camera->GetHeight(), 255.0f);
+					time_flag = false;
+				}
+				if(now_sec == one && time_flag == false)
+				{
+					time_flag = true;
+				}
 
 				// detectNet 의 DrawBoxes 를 이용하여 인식된 Bounding Box 를 이미지에 표시하여 imgRGBA 에 저장한다.
 				if( nc != lastClass || n == (numBoundingBoxes - 1) )
