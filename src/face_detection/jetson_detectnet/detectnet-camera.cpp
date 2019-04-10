@@ -241,8 +241,13 @@ int main( int argc, char** argv )
 				char now_sec = filename[14];
 				if(now_sec == zero && time_flag == true)
 				{
-					saveCropImageRGBA(filename, (float4*)imgRGBA, bb[1], bb[3], bb[0], bb[2], camera->GetWidth(), camera->GetHeight(), 255.0f);
-					time_flag = false;
+					// bounding box 의 width 가 120px 초과 200px 미만일 경우에만 저장한다.
+					// 해당 수치는 여러번의 실험을 거쳐 Network Overhead 를 최소화 하며 최적의 얼굴 이미지를 저장하기 위한 값이다.
+					if((bb[2] - bb[0] > 120) && (bb[2] - bb[0] < 200))
+					{
+						saveCropImageRGBA(filename, (float4*)imgRGBA, bb[1], bb[3], bb[0], bb[2], camera->GetWidth(), camera->GetHeight(), 255.0f);
+						time_flag = false;
+					}
 				}
 				if(now_sec == one && time_flag == false)
 				{
