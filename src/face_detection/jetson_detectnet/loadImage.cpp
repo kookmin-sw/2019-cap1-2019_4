@@ -35,13 +35,22 @@
 // 입력된 이미지를 Cropping 하여 새로운 QImage 객체에 Copy 하고 저장하는 함수이다.
 bool saveCropImageRGBA( const char* filename, float4* cpu, int y_min, int y_max, int x_min, int x_max, int width, int height, float max_pixel )
 {
-    // Crop 된 부분의 이미지 너비와 높이를 width_crop 과 height_crop 변수에 저장한다.
-	int width_crop = x_max - x_min;
-	int height_crop = y_max - y_min;
+	// Bounding Box 로 지정된 부분의 이미지 너비와 높이를 width_crop 과 height_crop 변수에 저장한다.
+	int width_bb = x_max - x_min;
+	int height_bb = y_max - y_min;
+
+	//Bounding Box 보다 큰 사이즈의 Cropping 영역을 새롭게 정의해야 한다.
+	// 왼쪽, 오른쪽, 하단은 너비와 높이의 0.6배, 상단은 높이의 0.3배 확장한 이미지를 Cropping 한다.
+	x_min = x_min - (width_bb * 0.6)
+	x_max = x_max + (width_bb * 0.6)
+	y_min = y_min - (height_bb * 0.3)
+	y_max = y_max + (height_bb * 0.6)
+
 	const float scale = 255.0f / max_pixel;
 
-    // Crop 된 부분의 크기를 기준으로 새로운 이미지 객체를 생성한다.
-	QImage img(width_crop, height_crop, QImage::Format_RGB32);
+	// Bounding Box 보다 큰 사이즈의 Cropping 영역을 이미지 객체로 생성한다.
+	// 앞에서 재정의한 x max, min 과 y max, min 을 기준으로 width 와 height 를 계산한다.
+	QImage img(x_max - x_min, y_max - y_min, QImage::Format_RGB32);
 
     // 2중 for 문을 통해 원본 이미지의 Cropping 할 부분에 해당하는 픽셀 데이터에 접근한다.
 	for( int y=y_min; y < y_max; y++ )
@@ -59,13 +68,12 @@ bool saveCropImageRGBA( const char* filename, float4* cpu, int y_min, int y_max,
     // 입력받은 filename 으로 이미지를 저장한다.
 	if( !img.save(filename))
 	{
-		printf("failed to save %ix%i output image to %s\n", width, height, filename);
+		printf("failed to save %ix%i output image to %s\n", x_max - x_min, y_max - y_min, filename);
 		return false;
 	}
 
 	return true;
 }
-
 
 
 bool saveImageRGBA( const char* filename, float4* cpu, int width, int height, float max_pixel )
