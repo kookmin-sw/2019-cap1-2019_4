@@ -6,7 +6,7 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
 
 ## 1. 프로젝트 소개 
 
-<img align="left" width="20%" height="20%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/logo.png"> 
+<img align="left" width="20%" height="20%" src="./doc/회의록/pictures/logo.png"> 
 
  &nbsp;FlexAds는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
 <br/><br/>
