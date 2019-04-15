@@ -10,6 +10,17 @@ from sklearn import metrics, model_selection
 train_x : 모델 생성을 위한 trian데이터
 train_y : 모델 생성을 위한 train데이터의 binary 분류 값
 text_x : 모델 생성 후 예측을 위한 test 데이터
+
+*parameter
+objective : reg,binary,multi 등으로 정의 가능, 이 코드에서는 binary분류를 할 것
+eval_metric : 모델의 평가 함수 정의
+eta : learning rate, 단계별 가중치를 줄여서 강한 모델을 제작 일반적으로 0.01~0.2
+subsample : 각 트리마다의 관측 데이터 샘플링 비율. 일반적으로 0.5~1.0
+min_child_weight : overfitting을 컨트롤, child의최소 가중치의 합
+colsampe_bytree : feature 샘플링 비율, 일반적으로 0.5~1.0
+max_depth : 트리의 최대 깊이를 정의, 일반적으로는 3~10
+silent : 동작 메세지를 출력하려면 0, 출력을 원하지 않으면 1
+seed : 난수 생성 seed
 '''
 def make_XGB(train_X, train_y, test_X, test_y=None, feature_names=None, seed_val=0):
 
