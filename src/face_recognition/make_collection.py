@@ -1,3 +1,6 @@
+#Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#PDX-License-Identifier: MIT-0 (For details, see https://github.com/awsdocs/amazon-rekognition-developer-guide/blob/master/LICENSE-SAMPLECODE.)
+
 ## Kookmin University
 ## School of Computer Science
 ## Capstone #4 Flex Ads
