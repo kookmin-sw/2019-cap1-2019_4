@@ -18,6 +18,7 @@ sudo apt-get install python-mysqldb
 pip install pandas
 
 #install xgboost
+pip install xgboost 
 
 #install the latest Boto 3 release via pip
 pip install boto3
