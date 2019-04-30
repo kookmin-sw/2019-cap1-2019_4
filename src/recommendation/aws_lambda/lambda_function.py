@@ -6,13 +6,16 @@ def lambda_handler(event, context):
     dynamodb = boto3.resource('dynamodb', region_name='us-west-2')
     table = dynamodb.Table('Recommendation')
     
+    user = event['user_id']
+    print("User is comming, user_id is "),
+    print(user)
     response = table.get_item(
         Key={
-            'user_id':  event['user_id'],
+            'user_id' : user,
             'update_ver': 1
         }
     )
+    print("recommend products(ads): "),
     
-    print(response['Item'])
-    
-    return response['Item']
+    # return advertisement url to show
+    return (response['Item']['bucket_url'])
