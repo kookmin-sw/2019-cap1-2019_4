@@ -32,3 +32,17 @@ def make_train_set():
     del products_df, orders_df
     
     return train_df
+
+# 만든 feature merge 하기 >>> 후에 함수 앞에 import 파일명 붙여서 수정해주기
+
+def train_result():
+    train_x = make_train_set()
+    train_x = pd.merge(train_x, dep_prob(), how="left", on=["user_id","department_id"])
+    train_x = pd.merge(train_x, aisle_prob(), how="left", on=["user_id","aisle_id"])
+    train_x = pd.merge(train_x, dow_prob(), how="left", on = ["user_id", "order_dow"])
+    train_x = pd.merge(train_x, hour_prob(), how="left", on=["user_id","order_hour_of_day"])
+    train_x = pd.merge(train_x, organic_prob(), how="left", on=["user_id","product_id"])
+    
+    return train_x
+
+train_x = np.array(train_result().drop(["order_id", "user_id", "product_id","aisle_id","department_id"], axis=1))
