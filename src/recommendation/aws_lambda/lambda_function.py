@@ -17,5 +17,5 @@ def lambda_handler(event, context):
     )
     print("recommend products(ads): "),
     
-    # return advertisement url to show
-    return (response['Item']['bucket_url'])
+    # return information to show
+    return (response['Item'])
