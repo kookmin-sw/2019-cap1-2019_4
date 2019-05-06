@@ -1,57 +1,16 @@
 <html>
-<style>
+  <style></style>
+  <head>
+  	<title>FlexAds Advertisement</title>
+  	<meta charset="utf-8">
+  </head>
 
-</style>
-<head>
-	<title>FlexAds Advertisement</title>
-	<meta charset="utf-8">
-</head>
-
-<body>
-
-<button onclick="myFunction()">Try it</button>
-<script>
-function parse_query_string(query) {
-  var vars = query.split("&");
-  var query_string = {};
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split("=");
-    var key = decodeURIComponent(pair[0]);
-    var value = decodeURIComponent(pair[1]);
-
-    if (typeof query_string[key] === "undefined") {
-      query_string[key] = decodeURIComponent(value);
-    } else if (typeof query_string[key] === "string") {
-      var arr = [query_string[key], decodeURIComponent(value)];
-      query_string[key] = arr;
-    } else {
-      query_string[key].push(decodeURIComponent(value));
-    }
-  }
-  return query_string;
-}
-	
-var query = window.location.search.substring(1);
-var qs = parse_query_string(query);
-
-var user_id = qs.user
-var user_name = qs.user_name
-var product_id = qs.product_id
-var product_name = qs.product_name
-var bucket_url = qs.bucket_url
-
-console.log(user_id)
-console.log(user_name)
-console.log(product_id)
-console.log(product_name)
-console.log(bucket_url)
-</script>
-
-<center><div id="user"> 유저이름 </div></center>
-
-<p align="middle"> 내용</p>
-<center><img align="middle" src="img url" alt="ad"></center>
-
-	<!-- <script src="get_data.js"></script> -->
-</body>
+  <body>
+    <center>
+      <div>
+    	  <h2> Welcome (●'◡'●)ﾉ♥</h2>
+        <script src="./get_data.js"></script>
+      </div>
+    </center>
+  </body>
 </html>
