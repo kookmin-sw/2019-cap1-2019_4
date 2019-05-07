@@ -45,4 +45,4 @@ def train_result():
     
     return train_x
 
-train_x = np.array(train_result().drop(["order_id", "user_id", "product_id","aisle_id","department_id"], axis=1))
+## 배열로 만드는 작업은 main에서
