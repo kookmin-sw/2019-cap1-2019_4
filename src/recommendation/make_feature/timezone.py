@@ -33,13 +33,17 @@ def timezone() :
 
     def timezone(s):
         if s < 6:
-            return 'midnight'
+            #return 'midnight'
+            return 0;
         elif s < 12:
-            return 'morning'
+            #return 'morning'
+            return 1;
         elif s < 18:
-            return 'noon'
+            #return 'noon'
+            return 2;
         else:
-            return 'night'
+            #return 'night'
+            return 3;
 
     time['timezone'] = time.order_hour_of_day.map(timezone)
     
