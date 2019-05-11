@@ -12,6 +12,11 @@ def add_item(table, user_id, product_id):
         }
     )
 
+    
+"""
+@recommendation : csv file with mapping table(user-recommened product)
+@result         : data to store in dynamoDB (user-recommened product-product's aisle etc.)
+"""
 
 def main():
 
@@ -61,6 +66,7 @@ def main():
 
     # add items to dynamoDB
     for i in range(result.shape[0]):
+        print(i)
         add_item(table, result.loc[i]['user_id'], result.loc[i]['product_id'])
 
 if __name__ == "__main__":
