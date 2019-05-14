@@ -2,6 +2,7 @@ from __future__ import print_function # Python 2/3 compatibility
 import boto3
 import pandas as pd
 import MySQLdb
+import sys
 
 def add_item(table, user_id, product_id):
     table.put_item(
@@ -12,22 +13,17 @@ def add_item(table, user_id, product_id):
         }
     )
 
-    
-"""
-@recommendation : csv file with mapping table(user-recommened product)
-@result         : data to store in dynamoDB (user-recommened product-product's aisle etc.)
-"""
 
 def main():
 
     # variable to connect to DB
-    db = MySQLdb.connect(host="..rds.amazonaws.com",# host
-                     user="",         # username
-                     passwd="",  # password
-                     db="")   # RDS database name
+    db = MySQLdb.connect(host="flexadsdb.cklcaxnrw3b0.us-east-2.rds.amazonaws.com",# host
+                     user="wldud8463",         # username
+                     passwd="dbswldud8!",  # password
+                     db="Flex_ads")   # RDS database name
 
     # data which stores recommendation info
-    recommendation = pd.read_csv("user_1.csv")
+    recommendation = pd.read_csv(sys.argv[1] + ".csv")
 
     # get data from RDS, to show additional info to users
     product = pd.read_sql('SELECT product_id,product_name,aisle_id  FROM products', con=db)
@@ -71,3 +67,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
