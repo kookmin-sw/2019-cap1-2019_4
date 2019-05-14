@@ -13,7 +13,7 @@ def add_item(table, user_id, product_id, product_name, aisle_name):
         'product_id': product_id,
         'product_name' : product_name,
         'aisle_name' : aisle_name,
-        'bucket_url': "https://s3-us-west-2.amazonaws.com/kmu-ads-bucket/"+ str(product_id) + ".png"
+        'bucket_url': "https://s3...."+ str(product_id) + ".png"
         }
     )
 
