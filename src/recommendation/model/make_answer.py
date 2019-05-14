@@ -2,10 +2,14 @@
 train set 에 맞는 y값 (분류) 만드는 함수
 '''
 
-def make_answer():
+def make_answer(train_x):
     
-    orders_df = pd.read_csv("orders.csv", usecols=["order_id","user_id"])
-    train_df = pd.read_csv("order_products__train.csv", usecols=["order_id", "product_id", "reordered"])
+    SQL = "SELECT order_id, user_id FROM orders"
+    orders_df = pd.read_sql(SQL, db)
+
+    SQL = "SELECT order_id, product_id, reordered FROM order_products__train"
+    train_df = pd.read_sql(SQL, db)
+    
     answer = pd.merge(train_df, orders_df, how="inner", on="order_id")
     
     del orders_df, train_df
@@ -23,3 +27,4 @@ def make_answer():
     
     train_y = train_df.reordered.values
     return train_y
+
