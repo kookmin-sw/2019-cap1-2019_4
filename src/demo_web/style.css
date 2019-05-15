@@ -1,0 +1,17 @@
+p {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+p.content {
+  margin-top: 10px;
+}
+p.welcome {
+  font-size: 40px;
+  margin:0px;
+}
+p.time {
+  font-size: 10px;
+  font-family: "Nanum Gothic", sans-serif;
+  text-align: right;
+}
