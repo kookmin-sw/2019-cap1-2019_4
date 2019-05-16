@@ -29,7 +29,7 @@ def detect_events(name):
 
     for event in i.event_gen(yield_nones = False):
         (header, type_names, path, saved_filename) = event
-        if type_name[0] == 'IN_CREATE':
+        if type_names[0] == 'IN_CREATE':
             check = str(saved_filename)[9:15]
             filename_list.append(saved_filename)
             time_list.append(check)
@@ -39,16 +39,16 @@ def rekog(name):
     print('Recognition start! with ', name)
     while True:
         now = datetime.datetime.now()
-        start = time.time()
         check_now = now.strftime("%H%M%S")
         if check_now in time_list:
-            now_index = time_list.index(now_index)
+	    start = time.time()
+            now_index = time_list.index(check_now)
             now_filename = filename_list[now_index]
 
             upload_filename = now_filename.encode("utf-8")
             print('Uploading', upload_filename, '...')
             time.sleep(1)
-            s3.upload_file(watch_path + upload_filename, bucket_name, upload_filename)
+            s3.upload_file(upload_filename, bucket_name, upload_filename)
             print('Uploading to s3 complete!')
 
             print('Get reponse from rekognition...')
@@ -57,23 +57,22 @@ def rekog(name):
             MaxFaces = 1,
             FaceMatchThreshold = 50)
 
-            if len(reponse['FaceMatches']) == 0:
+            if len(response['FaceMatches']) == 0:
                 print('No match face found, sending to unknown')
                 new_filename = 'unknown/' + upload_file_name
                 s3res.Object(bucket_name, new_filename).copy_from(CopySource=bucket_name + filename)
                 s3res.Object(bucket_name, upload_filename).delete()
             else:
                 print('Face found !!!')
-        		user_name = response['FaceMatches'][0]['Face']['ExternalImageId']
-        		new_filename = 'detected/%s/%s' % (user_name, filename)
-        		s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s/%s' % (bucket_name, filename))
-        		s3res.Object(bucket_name, filename).delete()
+       		user_name = response['FaceMatches'][0]['Face']['ExternalImageId']
+        	new_filename = 'detected/%s/%s' % (user_name, upload_filename)
+       		s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s/%s' % (bucket_name, upload_filename))
+        	s3res.Object(bucket_name, upload_filename).delete()
                 print('------------------------------')
-        		print('** Detected user is : ', user_name)
-                print('------------------------------')
+        	print('** Detected user is : ', user_name)
+               	print('------------------------------')
+	        print('Elapsed time : ', time.time() - start)
 
-        end = time.time()
-        print('Elapsed time : ', now - end)
 
 if __name__ == "__main__":
     inotify_thread = threading.Thread(target = detect_events, args = ('Thread 1', ))
@@ -81,3 +80,4 @@ if __name__ == "__main__":
 
     inotify_thread.start()
     rekognition_thread.start()
+
