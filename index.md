@@ -13,7 +13,7 @@
 
 <br/>
 <b>프로젝트 시나리오</b><br/><br/>
-<img align="center" width="100%" height="100%" src="./doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexadsscenario.png"> 
+<img align="center" width="100%" height="100%" src="./doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/architecture.jpeg"> 
 <br/>
 
 ## 2. 소개 영상
