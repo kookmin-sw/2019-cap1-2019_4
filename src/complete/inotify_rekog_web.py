@@ -21,14 +21,6 @@ driver = webdriver.Chrome(driver_path, chrome_options = options)
 base_url = 'your_aws_link'
 base_html = 'file::///home/nvidia/my_web_location/index.html?'
 
-name_id = {
-"jisoo" : "29021",
-"sungjae" : "115757",
-"jiyoung" : "2430",
-"sujin" : "21210",
-"jiwon" : "115757"
-}
-
 s3 = boto3.client('s3')
 s3res = boto3.resource('s3')
 rekognition = boto3.client('rekognition', region_name = 'us-east-2')
@@ -38,7 +30,6 @@ collection_id = 'flexads_face_collection'
 
 filename_list = []
 time_list = []
-
 
 def detect_events(name):
     print('Detect directory start! with ', name)
@@ -83,25 +74,24 @@ def rekog(name):
                 s3res.Object(bucket_name, upload_filename).delete()
             else:
                 print('Face found !!!')
-       		user_name = response['FaceMatches'][0]['Face']['ExternalImageId']
-        	new_filename = 'detected/%s/%s' % (user_name, upload_filename)
+       		user_id = response['FaceMatches'][0]['Face']['ExternalImageId']
+        	new_filename = 'detected/%s/%s' % (user_id, upload_filename)
        		s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s/%s' % (bucket_name, upload_filename))
         	s3res.Object(bucket_name, upload_filename).delete()
                 print('------------------------------')
-        	    print('** Detected user is : ', user_name)
+        	print('** Detected user_id is : ', user_id)
                	print('------------------------------')
-	            print('Elapsed time : ', time.time() - start)
+	        print('Elapsed time : ', time.time() - start)
 		
-                ## user_id 기반의 웹 광고 송출
-                user_id = name_id[user_name]
-                info_response = requests.get(base_url + str(user_id))
-                print(info_response.json())
-                product_name = info_response.json()['product_name']
-                product_aisle = info_response.json()['aisle']
-                image_url = info_response.json()['bucket_url']
-                print(str(user_id), product_name, product_aisle, image_url) 
-                driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(
-                    user_id, user_name, product_name, image_url, product_aisle, str(now)))
+		info_response = requests.get(base_url + str(user_id))
+		print(info_response.json())
+		
+		user_name = info_response.json()['user_name']
+		product_name = info_response.json()['product_name']
+		product_aisle = info_response.json()['aisle']
+		image_url = info_response.json()['bucket_url']
+		print(str(user_id), product_name, product_aisle, image_url) 
+		driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
 
 if __name__ == "__main__":
     inotify_thread = threading.Thread(target = detect_events, args = ('Thread 1', ))
