@@ -1,3 +1,8 @@
+'''
+EC2 환경에서 run 폴더에 있는 4개의 파일만 있으면 된다. main에 import 필수
+In an EC2 environment, only four files are needed in the run folder. import other .py files required
+
+''' 
 import random
 import pymysql
 import numpy as np # linear algebra
@@ -9,10 +14,10 @@ from xgboost import XGBClassifier
 from xgboost import plot_importance
 from xgboost import plot_tree
 
-#파일경로 수정---------------------------------------------git 경로에 맞게 설정해야함 : train, test, train_y, model 사용
-#import feature
-#import dataset
-#import model
+## 필요한 다른 python 파일
+import feature
+import dataset
+import model
 
 # RDS와 연결 설정 
 db = pymysql.connect(host="", port=3306, user="", passwd="",db="")
@@ -63,7 +68,7 @@ def merge_products(x):
     return " ".join(list(x.astype('str')))
     
     
-############### kaggle 제출용
+############### 정확도 판단을 위한 kaggle 제출용 > 주문번호 - 상품 매칭
 kaggle = out_df.groupby("order_id")["product_id"].aggregate(merge_products).reset_index()
 kaggle.columns = ["order_id", "products"]
 
@@ -80,17 +85,18 @@ product = list(map(lambda x: random.choice(x.split()) , sub_df['products']))
 sub_df['products'] = product
 sub_df.head()
 
-# kaggle csv로 저장!!!!
+# 주문번호 - 상품 1개 매칭 결과
 sub_df["products"].fillna("None", inplace=True)
 sub_df.to_csv("kaggle_1.csv", index=False)
 del sub_df
 
 
-############### user 기준 - 우리 프로젝트 결과
+############### user 기준 - 각 회원별 상품 1개 추천
 result = out_df.groupby("user_id")["product_id"].aggregate(merge_products).reset_index()
 
 result.to_csv("user_n.csv", index=False)
 
+# 회원에게 추천될 여러 상품 후보 중 하나만 선택해서 저장
 product = list(map(lambda x: random.choice(x.split()) , result['product_id']))
 
 result['product_id'] = map(int, product)
