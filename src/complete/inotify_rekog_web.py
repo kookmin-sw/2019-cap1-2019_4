@@ -4,6 +4,10 @@
 ## Capstone #4 Flex Ads
 ## 20132651 Lee Sungjae
 
+# inotify_rekog_web.py 는 Flex Ads 시스템의 핵심 코드로
+# inotify 와 AWS S3, Rekognition, API Gateway 호출, 그리고 웹 송출을 연동합니다.
+# threading 을 활용하여 inotify 와 그 외의 기능을 thread 단에서 구분하였습니다.
+
 import inotify.adapters
 import boto3
 import time
