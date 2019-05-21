@@ -15,10 +15,13 @@ p.time {
   font-family: "Nanum Gothic", sans-serif;
   text-align: right;
 }
-p.tobemember {
-  font-size: 50 px;
+
+#logo {
+  float: left;
 }
 
-#float {
-  float: left;
+#tobemember {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 40px;
+  font-weight: 500;
 }
