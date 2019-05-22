@@ -41,7 +41,7 @@ cd ../
 python3 username_dynamodb.py $user_name $user_id
 
 # face indexing to rekognition with user face dataset
-python3 rekognition_indexing.py $user_id
+python3 rekognition_indexing.py $user_name $user_id
 
 echo
 echo ++++++++++++++++++++++++++++++++++++
