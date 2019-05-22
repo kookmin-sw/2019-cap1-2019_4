@@ -24,7 +24,7 @@ client = boto3.resource(
 )
 
 # dynamodb 의 Recommendation 테이블을 지정한다.
-table = dynamo.Table('Recommendation')
+table = dynamodb.Table('Recommendation')
 
 # 해당 테이블에 update_item 을 이용하여, user_id 로 접근한 다음
 # user_name 을 입력받은 user_name 으로 변환한다.
