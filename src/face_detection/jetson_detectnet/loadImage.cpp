@@ -41,10 +41,10 @@ bool saveCropImageRGBA( const char* filename, float4* cpu, int y_min, int y_max,
 
 	//Bounding Box 보다 큰 사이즈의 Cropping 영역을 새롭게 정의해야 한다.
 	// 왼쪽, 오른쪽, 하단은 너비와 높이의 0.6배, 상단은 높이의 0.3배 확장한 이미지를 Cropping 한다.
-	x_min = x_min - (width_bb * 0.6)
-	x_max = x_max + (width_bb * 0.6)
-	y_min = y_min - (height_bb * 0.3)
-	y_max = y_max + (height_bb * 0.6)
+	x_min = x_min - (width_bb * 0.6);
+	x_max = x_max + (width_bb * 0.6);
+	y_min = y_min - (height_bb * 0.3);
+	y_max = y_max + (height_bb * 0.6);
 
 	const float scale = 255.0f / max_pixel;
 

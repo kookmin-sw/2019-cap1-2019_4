@@ -4,6 +4,10 @@
 ## Capstone #4 Flex Ads
 ## 20132651 Lee Sungjae
 
+# inotify_rekog_web.py 는 Flex Ads 시스템의 핵심 코드로
+# inotify 와 AWS S3, Rekognition, API Gateway 호출, 그리고 웹 송출을 연동합니다.
+# threading 을 활용하여 inotify 와 그 외의 기능을 thread 단에서 구분하였습니다.
+
 import inotify.adapters
 import boto3
 import time
@@ -19,11 +23,7 @@ options = Options()
 driver = webdriver.Chrome(driver_path, chrome_options = options)
 
 base_url = 'your_aws_link'
-base_html = './index.html?'
-
-id_name = {
-"77" : "밍지수"
-}
+base_html = 'file::///home/nvidia/my_web_location/index.html?'
 
 s3 = boto3.client('s3')
 s3res = boto3.resource('s3')
@@ -34,7 +34,6 @@ collection_id = 'flexads_face_collection'
 
 filename_list = []
 time_list = []
-
 
 def detect_events(name):
     print('Detect directory start! with ', name)
@@ -54,10 +53,10 @@ def rekog(name):
     print('Recognition start! with ', name)
     while True:
         now = datetime.datetime.now()
-        start = time.time()
         check_now = now.strftime("%H%M%S")
         if check_now in time_list:
-            now_index = time_list.index(now_index)
+	    start = time.time()
+            now_index = time_list.index(check_now)
             now_filename = filename_list[now_index]
 
             upload_filename = now_filename.encode("utf-8")
@@ -72,34 +71,31 @@ def rekog(name):
             MaxFaces = 1,
             FaceMatchThreshold = 50)
 
-            if len(reponse['FaceMatches']) == 0:
+            if len(response['FaceMatches']) == 0:
                 print('No match face found, sending to unknown')
                 new_filename = 'unknown/' + upload_file_name
                 s3res.Object(bucket_name, new_filename).copy_from(CopySource=bucket_name + filename)
                 s3res.Object(bucket_name, upload_filename).delete()
             else:
                 print('Face found !!!')
-        		user_id = response['FaceMatches'][0]['Face']['ExternalImageId']
-        		new_filename = 'detected/%s/%s' % (user_id, filename)
-        		s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s/%s' % (bucket_name, filename))
-        		s3res.Object(bucket_name, filename).delete()
+       		user_id = response['FaceMatches'][0]['Face']['ExternalImageId']
+        	new_filename = 'detected/%s/%s' % (user_id, upload_filename)
+       		s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s/%s' % (bucket_name, upload_filename))
+        	s3res.Object(bucket_name, upload_filename).delete()
                 print('------------------------------')
-        		print('** Detected user is : ', user_id)
-                print('----------------------------')
-
-                ## user_id 기반의 웹 광고 송출
-                response = requests.get(base_url + user_id)
-
-                user_name = id_name[str(user_id)]
-                product_name = response.json()['product_name']
-                product_aisle = response.json()['aisle']
-                image_url = response.json()['bucket_url']
-
-                driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s'%(
-                user_id, user_name, product_name, image_url, product_aisle))
-
-        end = time.time()
-        print('Elapsed time : ', now - end)
+        	print('** Detected user_id is : ', user_id)
+               	print('------------------------------')
+	        print('Elapsed time : ', time.time() - start)
+		
+		info_response = requests.get(base_url + str(user_id))
+		print(info_response.json())
+		
+		user_name = info_response.json()['user_name']
+		product_name = info_response.json()['product_name']
+		product_aisle = info_response.json()['aisle']
+		image_url = info_response.json()['bucket_url']
+		print(str(user_id), product_name, product_aisle, image_url) 
+		driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
 
 if __name__ == "__main__":
     inotify_thread = threading.Thread(target = detect_events, args = ('Thread 1', ))
