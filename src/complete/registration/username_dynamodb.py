@@ -14,16 +14,38 @@ user_id = sys.argv[2]
 dynamo_id = dynamo_credential.key_id()
 dynamo_key = dynamo_credential.access_key()
 
-# 해당되는 변수를 이용하여 dynamodb 의 client 를 생성하고, 접근한다.
+# 해당되는 변수를 이용하여 dynamodb 의 resource 를 생성하고, 접근한다.
 # 이 때, region 은 oregon 인 us-west-2 로 설정한다.
-client = boto3.client(
+client = boto3.resource(
     'dynamodb',
     aws_access_key_id=dynamo_id,
     aws_secret_access_key=dynamo_key,
     region_name = 'us-west-2'
 )
 
-# dynamodb 에 정상 접근되는지 테스트한다.
-# 해당 코드는 dynamodb 에 user_id 로 접근하여, user_name 을 modify 하는 것으로 변경될 예정이다.
-table_list = client.list_tables()['TableNames']
-print(table_list)
+# dynamodb 의 Recommendation 테이블을 지정한다.
+table = dynamo.Table('Recommendation')
+
+# 해당 테이블에 update_item 을 이용하여, user_id 로 접근한 다음
+# user_name 을 입력받은 user_name 으로 변환한다.
+response = table.update_item(
+    Key={
+        'user_id':user_id,
+        'update_ver' : 1
+    },
+    UpdateExpression="set user_name = :u",
+    ExpressionAttributeValues={
+        ':u': user_name
+    },
+    ReturnValues="UPDATED_NEW"
+)
+
+# 정확하게 이름이 들어갔는지 확인하기 위해, get_item 을 이용하여 체크한다.
+check_response = table.get_item(
+    Key={
+        'user_id' : user_id,
+        'update_ver': 1
+    }
+)
+check_username = check_response['Item']['user_name']
+print('<<', check_username, '>> name has registered to <<', user_id, '>> user number.')
