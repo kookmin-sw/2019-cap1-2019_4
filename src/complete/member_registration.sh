@@ -1,3 +1,4 @@
+#!/bin/sh
 echo
 echo ----------------------------------
 echo Flex Ads Member Registration System
