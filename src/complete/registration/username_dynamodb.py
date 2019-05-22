@@ -16,7 +16,7 @@ dynamo_key = dynamo_credential.access_key()
 
 # 해당되는 변수를 이용하여 dynamodb 의 resource 를 생성하고, 접근한다.
 # 이 때, region 은 oregon 인 us-west-2 로 설정한다.
-client = boto3.resource(
+dynamodb = boto3.resource(
     'dynamodb',
     aws_access_key_id=dynamo_id,
     aws_secret_access_key=dynamo_key,
