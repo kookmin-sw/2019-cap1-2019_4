@@ -83,7 +83,7 @@ def rekog(name):
         check_now = now.strftime("%H%M%S")
         # 해당 시간이 time_list 에 존재하면, 해당하는 filename 을 가져옵니다.
         if check_now in time_list:
-	        start = time.time()
+	    start = time.time()
             now_index = time_list.index(check_now)
             now_filename = filename_list[now_index]
 
@@ -115,28 +115,28 @@ def rekog(name):
                 # 매칭되는 얼굴이 있다면, 해당 얼굴의 user_id 를 반환하게 된다.
                 else:
                     print('Face found !!!')
-               		user_id = response['FaceMatches'][0]['Face']['ExternalImageId']
-                	new_filename = 'detected/%s/%s' % (user_id, upload_filename)
-               		s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s/%s' % (bucket_name, upload_filename))
-                	s3res.Object(bucket_name, upload_filename).delete()
+               	    user_id = response['FaceMatches'][0]['Face']['ExternalImageId']
+                    new_filename = 'detected/%s/%s' % (user_id, upload_filename)
+               	    s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s/%s' % (bucket_name, upload_filename))
+                    s3res.Object(bucket_name, upload_filename).delete()
 
                     # 반환된 얼굴의 user_id 정보를 기반으로, serverless 를 통해 DynamoDB 에서 회원 정보를 가져온다..
-            		info_response = requests.get(base_url + str(user_id))
+            	    info_response = requests.get(base_url + str(user_id))
 
                     # 해당 정보에서 user_name, product_name, aisle, bucket_url 을 가져온다.
-            		user_name = info_response.json()['user_name']
-            		product_name = info_response.json()['product_name']
-            		product_aisle = info_response.json()['aisle']
-            		image_url = info_response.json()['bucket_url']
+            	    user_name = info_response.json()['user_name']
+            	    product_name = info_response.json()['product_name']
+            	    product_aisle = info_response.json()['aisle']
+            	    image_url = info_response.json()['bucket_url']
 
                     # Recognize 된 회원의 이름 정보를 출력한다.
                     print('--------------------------------')
             	    print('** Detected user_id is : ', user_name)
-                   	print('--------------------------------')
+                    print('--------------------------------')
     	            print('Elapsed time : ', time.time() - start)
 
                     # chromedriver 측에 해당 정보를 전송하여 광고가 송출되도록 한다.
-            		driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
+            	    driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
             # 사람이 아닌 이미지가 Rekognition 에 들어갔을 경우에, 어떻게 처리할지를 except 에 작성이 필요하다.
             except:
                 pass
