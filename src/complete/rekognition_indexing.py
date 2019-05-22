@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ## Kookmin University
 ## School of Computer Science
 ## Capstone #4 Flex Ads
@@ -10,15 +11,17 @@
 
 # local 의 이미지 데이터셋 리스트를 확인하기 위해 os 패키지를 사용합니다.
 # aws 연결을 위해 boto3 패키지를 사용합니다.
+# shell script 에서 실행하여, 파라미터를 입력하기 위해 sys 를 사용합니다.
 import os
 import boto3
+import sys
 
-# 학습을 위한 user_id 와 확인을 위한 user_name 을 입력받습니다.
-user_name = str(input('Enter member name:'))
-user_id = str(input('Enter member id:'))
+# 학습을 위한 user_id 와 확인을 위한 user_name 을 arguments 에서 가져옵니다.
+user_name = sys.argv[1]
+user_id = sys.argv[2]
 
 # 데이터셋의 위치를 path 에 저장하고, os.walk 를 이용해 root, directory, file 이름을 가져옵니다.
-path = './train'
+path = './' + user_name
 files = []
 # r=root, d=directories, f = files
 for r, d, f in os.walk(path):
@@ -69,13 +72,13 @@ for f in files:
     # 얼굴을 detect 한 결과를 반환받습니다.
     # 해당 이미지에 어느 좌표에 얼굴이 존재하는지 등이 출력됩니다.
     print('Results for'+ filename_with_class)
-    print('Face indexed :')
     for faceRecord in response['FaceRecords']:
+        print('Face indexed :')
         print('     Face ID: ' + faceRecord['Face']['FaceId'])
         print('     Location: {}'.format(faceRecord['Face']['BoundingBox']))
 
-    print('Face not indexed:')
     for unindexedFace in response['UnindexedFaces']:
+        print('Face not indexed:')
         print('     Location: {}'.format(unindexedFace['FaceDetail']['BoundingBox']))
         print('     Reasons:')
         for reason in unindexedFace['Reasons']:
