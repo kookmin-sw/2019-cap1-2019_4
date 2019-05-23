@@ -15,8 +15,13 @@ days_since_fitst_order()
 """
 def days_since_first_order() :
     temp = order_number_rev()
-    order_df = pd.read_csv("instacart-market-basket-analysis/orders.csv", usecols=["user_id","order_number","days_since_prior_order"])
-    
+    # data from RDS
+	db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+
+	SQL = "SELECT * FROM orders"
+	orders_df = pd.read_sql(SQL, db)
+	del SQL
+
     order_prior = pd.merge(temp, order_df, how='inner', on=['user_id'])
     
     order_prior.sort_values(['user_id', 'order_number'],inplace=True)
