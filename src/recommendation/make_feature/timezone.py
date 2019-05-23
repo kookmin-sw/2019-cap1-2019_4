@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[10]:
-
-
 from pandas import DataFrame
 import pandas as pd
 import json
@@ -11,9 +5,6 @@ import csv
 import numpy as np
 import re
 import order_number_rev
-
-
-# In[13]:
 
 
 """timezone()
@@ -25,33 +16,28 @@ import order_number_rev
 
 def timezone() :
     
-    time = pd.read_csv("instacart-market-basket-analysis/orders.csv", usecols=["order_hour_of_day"])
-    
+    # data from RDS
+    db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+
+    SQL = "SELECT * FROM orders"
+    time = pd.read_sql(SQL, db)
+    del SQL
+
     time.sort_values('order_hour_of_day', inplace=True)
     time.drop_duplicates(inplace=True)
     time.reset_index(drop=True, inplace=True)
 
     def timezone(s):
         if s < 6:
-            #return 'midnight'
-            return 0;
+            return 'midnight'
         elif s < 12:
-            #return 'morning'
-            return 1;
+            return 'morning'
         elif s < 18:
-            #return 'noon'
-            return 2;
+            return 'noon'
         else:
-            #return 'night'
-            return 3;
+            return 'night'
 
     time['timezone'] = time.order_hour_of_day.map(timezone)
     
     return time
-
-
-# In[ ]:
-
-
-
 
