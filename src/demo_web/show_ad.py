@@ -50,4 +50,4 @@ driver.get('file_path/index.html?user_id=' + str(uid) + '&user_name=' + uname + 
 
 # Detect 는 되었지만 Rekognition 에 등록되어 있지 않은 사람인 경우 ( 비회원인 경우 )
     # 회원 등록 유도 HTML 실행
-driver.get('file_path/nonmember.html')
+driver.get('file_path/nonmember.html?current_time=' + time)
