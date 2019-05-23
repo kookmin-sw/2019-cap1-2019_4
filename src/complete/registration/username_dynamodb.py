@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+## Kookmin University
+## School of Computer Science
+## Capstone #4 Flex Ads
+## 20132651 Lee Sungjae
+
+# username_dynamodb.py 는 외부에서 user_name 과 user_id 를 입력받아,
+# user_id 에 해당되는 dynamodb 의 user_name 값을 입력받은 값으로 변경하는 코드이다.
+# 이를 위해 AWS 에 연결하기 위한 boto3 패키지와 값을 입력받기 위한 sys 패키지를 가져온다.
 import boto3
 import sys
 
