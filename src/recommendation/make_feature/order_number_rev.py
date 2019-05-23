@@ -28,7 +28,7 @@ def order_number_rev() :
 
     
     #merge
-    order_prior= pd.merge(prior_df, orders_df, how='inner', on=['order_id'])
+    order_prior= pd.merge(prior, orders_df, how='inner', on=['order_id'])
     
     order_prior.sort_values(['order_id', 'add_to_cart_order'], inplace=True)
     order_prior.reset_index(drop=1, inplace=True)
