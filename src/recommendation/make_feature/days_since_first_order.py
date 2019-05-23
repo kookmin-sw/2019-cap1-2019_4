@@ -16,11 +16,10 @@ days_since_fitst_order()
 def days_since_first_order() :
     temp = order_number_rev()
     # data from RDS
-	db = pymysql.connect(host="", port= , user="",passwd ="", db="")
-
-	SQL = "SELECT * FROM orders"
-	orders_df = pd.read_sql(SQL, db)
-	del SQL
+    db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+    SQL = "SELECT * FROM orders"
+    orders_df = pd.read_sql(SQL, db)
+    del SQL
 
     order_prior = pd.merge(temp, order_df, how='inner', on=['user_id'])
     
