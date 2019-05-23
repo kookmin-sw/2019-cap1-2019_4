@@ -19,7 +19,12 @@ order_id 별로 구입총량을 계산하여
 """
 def together():
 
-    order_prior = pd.read_csv("instacart-market-basket-analysis/order_products__prior.csv", usecols = ["order_id", "product_id"])
+    # data from RDS
+    db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+    
+    SQL = "SELECT * FROM order_products__prior"
+    order_prior = pd.read_sql(SQL,db)
+    del SQL
 
     order_size = order_prior.groupby('order_id').size().reset_index()
     order_size.columns = ['order_id', 'total']
