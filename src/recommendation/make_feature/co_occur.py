@@ -36,7 +36,7 @@ def co_occur() :
     prior = pd.read_sql(SQL,db)
     del SQL
     
-    order_prior =pd.merge(or1, or2, how='inner', on=['order_id'])
+    order_prior =pd.merge(orders_df, prior, how='inner', on=['order_id'])
     
     order_tbl= order_prior.groupby('order_id').size().to_frame()
     order_tbl.columns = ['order_size']
