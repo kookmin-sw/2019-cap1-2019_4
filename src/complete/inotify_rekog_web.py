@@ -34,8 +34,15 @@ driver = webdriver.Chrome(driver_path, chrome_options = options)
 # 1-2 base serverless url and html location
 # requests 를 통해 가져올 serverless 주소와
 # chromedriver 를 통해 실행할 html 파일의 위치를 지정합니다
+
+# base_url 은 회원 정보를 가져올 API Gateway 의 Serverless 주소입니다.
+# default_html 은 아무도 인식되지 않았을 때, default 로 Flex Ads 로고를 보여줍니다.
+# base_html 은 회원이 인식되었을 때, 전달하는 회원 정보를 기반으로 광고 정보를 보여줍니다.
+# member_html 은 비회원이 인식되었을 때, 회원으로 등록해달라는 정보를 보여줍니다.
 base_url = 'your_aws_link'
+default_html = 'file::///home/nvidia/my_web_location/default.html'
 base_html = 'file::///home/nvidia/my_web_location/index.html?'
+member_html = 'file::///home/nvidia/my_web_location/nonmember.html'
 
 # 1-3 aws client setting
 # s3 와 rekognition client 를 생성합니다.
@@ -99,7 +106,7 @@ def rekog(name):
             # 3-3. Face image recognition with AWS Rekognition
             # S3 에 업로드된 파일을 이용하여, rekognition 에 response 를 보낸다.
             # FaceMatchThreshold 는 기존의 50에서 조금 더 높여 80으로 설정한다.
-            print('Get reponse from rekognition...')
+            print('Get response from rekognition...')
             try:
                 response = rekognition.search_faces_by_image(CollectionId = collection_id,
                 Image = {'S3Object':{'Bucket':bucket_name, 'Name':upload_filename}},
@@ -112,6 +119,8 @@ def rekog(name):
                     new_filename = 'unknown/' + upload_file_name
                     s3res.Object(bucket_name, new_filename).copy_from(CopySource=bucket_name + filename)
                     s3res.Object(bucket_name, upload_filename).delete()
+		    # 매칭되는 얼굴이 없다는 것은, 회원이 아니라는 의미이므로 회원 등록 권유 페이지를 보여준다.
+		    driver.get(member_html)
                 # 매칭되는 얼굴이 있다면, 해당 얼굴의 user_id 를 반환하게 된다.
                 else:
                     print('Face found !!!')
@@ -137,9 +146,10 @@ def rekog(name):
 
                     # chromedriver 측에 해당 정보를 전송하여 광고가 송출되도록 한다.
             	    driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
-            # 사람이 아닌 이미지가 Rekognition 에 들어갔을 경우에, 어떻게 처리할지를 except 에 작성이 필요하다.
+
+	    # 사람이 아닌 이미지가 Rekognition 에 들어갔을 경우에, default 페이지를 보여다.
             except:
-                pass
+		driver.get(default_html)
 
 if __name__ == "__main__":
     # 서로 다른 두 개의 Thread 를 객체로 생성한다.
