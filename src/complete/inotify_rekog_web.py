@@ -106,7 +106,7 @@ def rekog(name):
             # 3-3. Face image recognition with AWS Rekognition
             # S3 에 업로드된 파일을 이용하여, rekognition 에 response 를 보낸다.
             # FaceMatchThreshold 는 기존의 50에서 조금 더 높여 80으로 설정한다.
-            print('Get reponse from rekognition...')
+            print('Get response from rekognition...')
             try:
                 response = rekognition.search_faces_by_image(CollectionId = collection_id,
                 Image = {'S3Object':{'Bucket':bucket_name, 'Name':upload_filename}},
@@ -146,7 +146,8 @@ def rekog(name):
 
                     # chromedriver 측에 해당 정보를 전송하여 광고가 송출되도록 한다.
             	    driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
-            # 사람이 아닌 이미지가 Rekognition 에 들어갔을 경우에, default 페이지를 보여다.
+
+	    # 사람이 아닌 이미지가 Rekognition 에 들어갔을 경우에, default 페이지를 보여다.
             except:
 		driver.get(default_html)
 
