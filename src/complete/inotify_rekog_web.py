@@ -75,7 +75,7 @@ def detect_events(name):
         (header, type_names, path, saved_filename) = event
         # detectnet-camera 에서 face image 를 생성해낼 경우에는 IN_CREATE 조건이 나타납니다.
         # 해당 경우만 if 문을 사용하여 체크하고, filename_list 와 time_list 에 값을 저장합니다.
-        if type_name[0] == 'IN_CREATE':
+        if type_names[0] == 'IN_CREATE':
             check = str(saved_filename)[9:15]
             filename_list.append(saved_filename)
             time_list.append(check)
