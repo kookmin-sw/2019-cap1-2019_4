@@ -40,9 +40,9 @@ driver = webdriver.Chrome(driver_path, chrome_options = options)
 # base_html 은 회원이 인식되었을 때, 전달하는 회원 정보를 기반으로 광고 정보를 보여줍니다.
 # member_html 은 비회원이 인식되었을 때, 회원으로 등록해달라는 정보를 보여줍니다.
 base_url = 'your_aws_link'
-default_html = 'file::///home/nvidia/my_web_location/default.html'
-base_html = 'file::///home/nvidia/my_web_location/index.html?'
-member_html = 'file::///home/nvidia/my_web_location/nonmember.html'
+default_html = 'file:///home/nvidia/my_web_location/default.html'
+base_html = 'file:///home/nvidia/my_web_location/index.html?'
+member_html = 'file:///home/nvidia/my_web_location/nonmember.html'
 
 # 1-3 aws client setting
 # s3 와 rekognition client 를 생성합니다.
@@ -100,7 +100,7 @@ def rekog(name):
             upload_filename = now_filename.encode("utf-8")
             print('Uploading', upload_filename, '...')
             time.sleep(1)
-            s3.upload_file(watch_path + upload_filename, bucket_name, upload_filename)
+            s3.upload_file(upload_filename, bucket_name, upload_filename)
             print('Uploading to s3 complete!')
 
             # 3-3. Face image recognition with AWS Rekognition
@@ -116,8 +116,8 @@ def rekog(name):
                 # 만약 매칭되는 얼굴이 없다면, 해당 사실을 알리고 파일을 unknown 으로 이동시킨다.
                 if len(response['FaceMatches']) == 0:
                     print('No match face found, sending to unknown')
-                    new_filename = 'unknown/' + upload_file_name
-                    s3res.Object(bucket_name, new_filename).copy_from(CopySource=bucket_name + filename)
+                    new_filename = 'unknown/%s'%(upload_filename)
+                    s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s%s'%(bucket_name,upload_filename))
                     s3res.Object(bucket_name, upload_filename).delete()
 		    # 매칭되는 얼굴이 없다는 것은, 회원이 아니라는 의미이므로 회원 등록 권유 페이지를 보여준다.
 		    driver.get(member_html)
