@@ -26,9 +26,17 @@ co_occur
 
 
 def co_occur() :
-    or1 = pd.read_csv("instacart-market-basket-analysis/order_products__prior.csv", usecols=["order_id","product_id"])
-    or2= pd.read_csv("instacart-market-basket-analysis/orders.csv", usecols=["user_id","order_id"])
-    order_prior =pd.merge(or1, or2, how='inner', on=['order_id'])
+    db = pymysql.connect(host="", port= , user="", passwd="", db="")
+    
+    SQL = "SELECT * FROM orders"
+    orders_df = pd.read_sql(SQL, db)
+    del SQL
+
+    SQL = "SELECT * FROM order_products__prior"
+    prior = pd.read_sql(SQL,db)
+    del SQL
+    
+    order_prior =pd.merge(orders_df, prior, how='inner', on=['order_id'])
     
     order_tbl= order_prior.groupby('order_id').size().to_frame()
     order_tbl.columns = ['order_size']

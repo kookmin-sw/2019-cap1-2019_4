@@ -8,7 +8,11 @@ import time
 import numpy as np
 import pandas as pd
 
-orders_df = pd.read_csv("orders.csv")
+db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+
+SQL = "SELECT * FROM orders"
+orders_df = pd.read_sql(SQL, db)
+del SQL
 
 '''
 model에 넣고 추천 상품을 예측하기 위한 임시 order_id를 만드는 함수

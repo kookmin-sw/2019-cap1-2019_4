@@ -15,11 +15,20 @@ order_number_rev
 
 def order_number_rev() :
     
-    orders_df = pd.read_csv("instacart-market-basket-analysis/orders.csv", usecols=["order_id","user_id","order_number"])
-    prior_df = pd.read_csv("instacart-market-basket-analysis/order_products__prior.csv", usecols = ["order_id","add_to_cart_order"])
+    # data from RDS
+    db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+
+    SQL = "SELECT * FROM orders"
+    orders_df = pd.read_sql(SQL, db)
+    del SQL
+
+    SQL = "SELECT * FROM order_products__prior"
+    prior = pd.read_sql(SQL,db)
+    del SQL
+
     
     #merge
-    order_prior= pd.merge(prior_df, orders_df, how='inner', on=['order_id'])
+    order_prior= pd.merge(prior, orders_df, how='inner', on=['order_id'])
     
     order_prior.sort_values(['order_id', 'add_to_cart_order'], inplace=True)
     order_prior.reset_index(drop=1, inplace=True)
