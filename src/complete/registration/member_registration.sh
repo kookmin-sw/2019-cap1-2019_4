@@ -36,6 +36,10 @@ timeout 30s ./detectnet-camera facenet
 rm ./detectnet-camera
 clear
 
+# face data cleaning and check
+echo Check dataset and enter for next step
+read enter
+
 # add user_name to DynamoDB with user_id
 cd ../
 python3 username_dynamodb.py $user_name $user_id
