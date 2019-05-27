@@ -15,6 +15,14 @@
 <b>프로젝트 시나리오</b><br/><br/>
 <img align="center" width="100%" height="100%" src="./doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/architecture.jpeg"> 
 <br/>
+ⓐ Rekognition에 고객 얼굴 데이터를 인덱싱하여 S3에 저장한다.<br/>
+ⓑ 일정 기간을 정하여 회원의 구매내역을 XGBoost를 통해 학습하여 가장 구매 가능성이 높은 상품에 대한 광고 정보를 입력한다.<br/>
+① 회원이 Jetson에 연결된 카메라에 포착된다.<br/>
+② 딥러닝을 통해 얼굴이 detect 되고, S3로 전송된다.<br/>
+③ 클라우드에서 Rekognition을 통해 얼굴이 인식된다.<br/>
+④ 인식된 회원 정보를 이용해 송출할 광고 정보를 API Gateway를 통해 DynamoDB에서 가져온다.<br/>
+⑤ 해당하는 광고를 S3에서 가져와 디스플레이로 송출한다.<br/>
+
 
 ## 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
