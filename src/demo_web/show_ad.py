@@ -21,24 +21,33 @@ options = Options()
 # 창 최대 크기 모드
 options.add_argument('--start-maximized')
 
-# TODO: 성재오빠 쪽에서 받아오기
-user_id = "77"
+# TODO
+user_id = "12345678"
 
 # Chrome 창 띄우기
 driver = webdriver.Chrome(path, chrome_options=options)
+
+# detectnet-camera facenet 에서 Detect 에 실패한 경우 ( 앞에 사람이 없는 경우 )
+    # 디폴트 html 실행
+driver.get('file_path/default.html')
+
 # 사용자의 아이디가 지정되어 있는 url로 접속
-URL = 'https://~~~~.execute-api.us-west-2.amazonaws.com/show?user=' + user_id
+URL = 'https://amazonaws_url/show?user=' + user_id
 response = requests.get(URL)
 
 # 고객 아이디 / 이름,  추천 제품 아이디 / 이름 / 진열 구역,  광고 이미지 주소
 uid = response.json()['user_id']
-        # TODO: response.json()['user_name']
-uname = "밍지수"
+uname = response.json()['user_name']
 pname = response.json()['product_name']
 paisle = response.json()['aisle']
 url = response.json()['bucket_url']
-# TODO: 성재오빠 쪽에서 받아오기
-time = "2019-05-31 14:48:33:0000"
+# TODO
+time = "2019-05-21 12:34:56:0000"
 
-# 고객과 제품의 정보를 포함한 HTML 실행
-driver.get('file:///C:/Users/blue8/OneDrive/Desktop/sns/index.html?user_id=' + str(uid) + '&user_name=' + uname + '&product_name=' + pname + '&bucket_url=' + url + '&product_aisle=' + str(paisle) + '&current_time=' + time)
+# Detect 되고 Rekognition 에 등록되어 있는 경우 ( 회원인 경우 )
+    # 고객과 제품의 정보를 포함한 HTML 실행
+driver.get('file_path/index.html?user_id=' + str(uid) + '&user_name=' + uname + '&product_name=' + pname + '&bucket_url=' + url + '&product_aisle=' + str(paisle) + '&current_time=' + time)
+
+# Detect 는 되었지만 Rekognition 에 등록되어 있지 않은 사람인 경우 ( 비회원인 경우 )
+    # 회원 등록 유도 HTML 실행
+driver.get('file_path/nonmember.html?current_time=' + time)

@@ -5,9 +5,21 @@ import csv
 import pickle
 import xgboost as xgb
 
-orders_df = pd.read_csv("orders.csv")
-products_df = pd.read_csv("products.csv")
-prior = pd.read_csv("order_products__prior.csv")
+# data from RDS-----------------------
+db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+
+SQL = "SELECT * FROM orders"
+orders_df = pd.read_sql(SQL, db)
+del SQL
+
+SQL = "SELECT * FROM products"
+products_df = pd.read_sql(SQL, db)
+del SQL
+
+SQL = "SELECT * FROM order_products__prior"
+prior = pd.read_sql(SQL, db)
+del SQL
+#-------------------------------------
 
 order_prior =pd.merge(prior, orders_df, how='inner', on=['order_id'])
 order_prior_product = pd.merge(order_prior, products_df, how='inner', on=['product_id'])

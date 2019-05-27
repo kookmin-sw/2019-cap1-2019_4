@@ -43,9 +43,11 @@
 
 #include "detectNet.h"
 
-// Real-Time Detection 을 위한 기본 카메라 모듈은 Jetson 에 장착된 onboard camera 를 사용한다.
+// Real-Time Detection 을 위한 기본 카메라 모듈을, Jetson 에 장착된 onboard camera 가 아닌
+// USB 로 연결된 logitech C920 또는 MS Lifecam Studio 를 사용한다.
+// 이를 위해서 Camera Port 를 onboard 를 의미하는 -1 이 아닌, USB Camera 를 의미하는 1로 변경한다.
 // -1 for onboard camera, or change to index of /dev/video V4L2 camera (>=0)
-#define DEFAULT_CAMERA -1
+#define DEFAULT_CAMERA 1
 
 
 bool signal_recieved = false;

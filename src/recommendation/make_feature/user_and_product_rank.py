@@ -13,9 +13,19 @@ import re
 
 def rank_func():
 
-    orders_df = pd.read_csv("instacart-market-basket-analysis/orders.csv", usecols=["order_id","user_id"])
-    prior_df = pd.read_csv("instacart-market-basket-analysis/order_products__prior.csv", usecols = ["order_id", "product_id"])
+    # data from RDS -----------------------------------------------
+    db = pymysql.connect(host="", port= , user="",passwd ="", db="")
     
+    SQL = "SELECT order_id, user_id FROM orders"
+    orders_df = pd.read_sql(SQL, db)
+    del SQL
+    
+    SQL = "SELECT order_id, product_id FROM order_products__prior"
+    prior_df = pd.read_sql(SQL,db)
+    del SQL
+    # -------------------------------------------------------------
+    
+ 
     #merge
     prior_and_orders =pd.merge(prior_df, orders_df, how='inner', on=['order_id'])
     

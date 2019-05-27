@@ -1,9 +1,21 @@
 # 유저가 최근에 구매한 상품이 몇번 재구매 됐고, 구매 됐었는지, 그리고 지금 재구매가 된 것인지
-
+import pymysql
+import csv
 
 def latest_order():
-    orders_df = pd.read_csv("orders.csv", usecols=["order_id","user_id","order_number"])
-    prior_df = pd.read_csv("order_products__prior.csv")
+    
+    # data from RDS -----------------------------------------------
+    db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+
+    SQL = "SELECT order_id, user_id, order_number FROM orders"
+    orders_df = pd.read_sql(SQL, db)
+    del SQL
+    
+    SQL = "SELECT * FROM order_products__prior"
+    prior_df = pd.read_sql(SQL,db)
+    del SQL
+    # -------------------------------------------------------------
+    
     
     # merge
     prior_df = pd.merge(prior_df, orders_df, how="inner", on="order_id")

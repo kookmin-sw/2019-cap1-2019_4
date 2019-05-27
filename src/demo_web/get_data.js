@@ -4,17 +4,20 @@ function parse_query_string(query) {
 
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split("=");
-    var key = decodeURIComponent(pair[0]);
-    var value = decodeURIComponent(pair[1]);
+    var key = pair[0];
+    var value = pair[1];
+    value = value.replace(/%20/g,' ');
+    console.log(i , key, value)
+
 
     // '===': 형식이 같은지 비교
     if (typeof query_string[key] === "undefined") {
-      query_string[key] = decodeURIComponent(value);
+      query_string[key] = value;
     } else if (typeof query_string[key] === "string") {
-      var arr = [query_string[key], decodeURIComponent(value)];
+      var arr = [query_string[key], value];
       query_string[key] = arr;
     } else {
-      query_string[key].push(decodeURIComponent(value));
+      query_string[key].push(value);
     }
   }
   return query_string;
@@ -22,6 +25,7 @@ function parse_query_string(query) {
 
 var query = window.location.search.substring(1);
 var qs = parse_query_string(query);
+console.log(qs)
 
 var user_id = qs.user
 var user_name = qs.user_name

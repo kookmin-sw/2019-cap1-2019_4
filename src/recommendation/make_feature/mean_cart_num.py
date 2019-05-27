@@ -15,10 +15,18 @@ prod_order_rank_func와 유사함
 
 def mean_cart_num() :
     
-    orders_df = pd.read_csv("instacart-market-basket-analysis/orders.csv", usecols=["order_id","user_id"])
-    prior_df = pd.read_csv("instacart-market-basket-analysis/order_products__prior.csv", usecols = ["order_id", "product_id","add_to_cart_order"])
+    db = pymysql.connect(host="", port= , user="",passwd ="", db="")
+
+    SQL = "SELECT * FROM orders"
+    orders_df = pd.read_sql(SQL, db)
+    del SQL
+
+    SQL = "SELECT * FROM order_products__prior"
+    prior = pd.read_sql(SQL,db)
+    del SQL
+    
     #merge
-    order_prior =pd.merge(prior_df, orders_df, how='inner', on=['order_id'])
+    order_prior =pd.merge(prior, orders_df, how='inner', on=['order_id'])
     
     gr = order_prior.groupby(['user_id', 'product_id'])
     
