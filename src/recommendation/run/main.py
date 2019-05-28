@@ -60,7 +60,8 @@ print("Prediction fin.")
 #### 모델 예측값 따로 저장
 temp = pred
 
-cutoff = temp.mean()
+## 모델 뎁스가 같더라도 cutoff에 따라 값이 바뀜
+cutoff = temp.mean() - 0.02
 temp[temp>=cutoff] = 1
 temp[temp<cutoff] = 0
 
