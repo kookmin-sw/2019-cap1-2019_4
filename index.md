@@ -28,11 +28,11 @@
 ## 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
 ##### (1) 최종 데모 영상
-[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](
+[![flexads](./doc/회의록/pictures/flexads_youtube_thumbnail.png)](
 https://youtu.be/uspIkRLVFe4)<br/><br/>
 
 ##### (2) 소개 영상
-[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](https://youtu.be/yIW5yL--zU8)<br/><br/>
+[![flexads](./doc/회의록/pictures/flexads_youtube_thumbnail.png)](https://youtu.be/yIW5yL--zU8)<br/><br/>
 
 ## 3. 팀 소개
 
@@ -92,7 +92,7 @@ wldud8463@kookmin.ac.kr
 ```
 이성재
 얼굴 인식을 위한 시스템 설계
-Rekonition을 이용한 얼굴 학습 및 Jetson과의 연동 시스템 구축
+Rekognition을 이용한 얼굴 학습 및 Jetson과의 연동 시스템 구축
 Lambda Function을 이용한 S3-Rekognition-EC2의 연결
 
 
@@ -118,3 +118,4 @@ blue8957@gmail.com
 * 코드는 해당하는 작업 branch에 작성되어있으며, 최종 결과가 나온 후 master로 합쳐질 예정입니다.
 * 회의록과 제출해야하는 문서는 각 평가일에 맞추어 master로 merge됩니다.
 * **최종 결과물에 대한 내용은 최종보고서에 기술되어있습니다.**
+* **기타 작업 내용은 Issue를 통해 살펴볼 수 있습니다.**
