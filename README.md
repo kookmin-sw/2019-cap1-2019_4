@@ -16,7 +16,6 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
 
 <b>프로젝트 시나리오</b><br/><br/>
 <img align="center" width="100%" height="100%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/master/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/architecture.jpeg"> 
-
 <br/>
 ⓐ Rekognition에 고객 얼굴 데이터를 인덱싱하여 S3에 저장한다.<br/>
 ⓑ 일정 기간을 정하여 회원의 구매내역을 XGBoost를 통해 학습하여 가장 구매 가능성이 높은 상품에 대한 광고 정보를 입력한다.<br/>
@@ -28,6 +27,11 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
 
 ## 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
+##### (1) 최종 데모 영상
+[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](
+https://youtu.be/uspIkRLVFe4)<br/><br/>
+
+##### (2) 소개 영상
 [![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](https://youtu.be/yIW5yL--zU8)<br/><br/>
 
 
@@ -115,3 +119,4 @@ blue8957@gmail.com
 * 코드는 해당하는 작업 branch에 작성되어있으며, 최종 결과가 나온 후 master로 합쳐질 예정입니다.
 * 회의록과 제출해야하는 문서는 각 평가일에 맞추어 master로 merge됩니다.
 * **최종 결과물에 대한 내용은 최종보고서에 기술되어있습니다.**
+* **기타 작업 내용은 Issue를 통해 살펴볼 수 있습니다.**
