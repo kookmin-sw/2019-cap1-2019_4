@@ -13,7 +13,7 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
  &nbsp; Flex Ads is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
 <br/>
-#### 프로젝트 시나리오<br/>
+<b>프로젝트 시나리오</b><br/>
 <img align="center" width="100%" height="100%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
 <br/>
 
@@ -96,6 +96,7 @@ odobenuseKR@gmail.com
 Jeston TX1 설정 및 관리
 Jetson 과 AWS S3 연동 시스템 구축 
 Web UI 개발
+
 
 blue8957@gmail.com
 ```
