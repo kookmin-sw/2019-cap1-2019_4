@@ -93,7 +93,7 @@ wldud8463@kookmin.ac.kr
 ```
 이성재
 얼굴 인식을 위한 시스템 설계
-Rekonition을 이용한 얼굴 학습 및 Jetson과의 연동 시스템 구축
+Rekognition을 이용한 얼굴 학습 및 Jetson과의 연동 시스템 구축
 Lambda Function을 이용한 S3-Rekognition-EC2의 연결
 
 
