@@ -28,7 +28,7 @@
 ## 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
 ##### (1) 최종 데모 영상
-[![flexads](./doc/회의록/pictures/flexads_youtube_thumbnail.png)](
+[![flexads](./doc/회의록/pictures/flexads_youtube_thumbnail_final.png)](
 https://youtu.be/uspIkRLVFe4)<br/><br/>
 
 ##### (2) 소개 영상
