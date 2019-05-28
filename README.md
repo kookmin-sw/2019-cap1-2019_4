@@ -8,12 +8,12 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
 
 <img align="left" width="20%" height="20%" src="./doc/회의록/pictures/logo.png"> 
 
- &nbsp;FlexAds는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
+ &nbsp;Flex Ads는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
 <br/><br/>
- &nbsp; FlexAds is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
+ &nbsp; Flex Ads is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
 <br/>
-<b>프로젝트 시나리오</b><br/><br/>
+#### 프로젝트 시나리오<br/>
 <img align="center" width="100%" height="100%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
 <br/>
 
@@ -93,14 +93,14 @@ odobenuseKR@gmail.com
 
 ```
 황수진
-TX1 / TX2 설정 및 관리
-얼굴 인식 서비스 개발 
-AWS S3 저장소 데이터 관리
+Jeston TX1 설정 및 관리
+Jetson 과 AWS S3 연동 시스템 구축 
+Web UI 개발
 
 blue8957@gmail.com
 ```
 
-## 4. 사용법
+## 4. 기타
 * 기타 기록과 문서는 wiki를 사용합니다.
 * 코드는 해당하는 작업 branch에 작성되어있으며, 최종 결과가 나온 후 master로 합쳐질 예정입니다.
 * 회의록과 제출해야하는 문서는 각 평가일에 맞추어 master로 merge됩니다.
