@@ -22,8 +22,8 @@ def runXGB(train_X, train_y, test_X, test_y=None, feature_names=None, seed_val=0
         params["subsample"] = 0.7
         params["min_child_weight"] = 10
         params["colsample_bytree"] = 0.7
-        ## 제일 정확성이 높은 feature 조합과 트리 깊이가 5일 때 더 정확한 값이 나오는 것을 알았음
-        params["max_depth"] = 5
+        ## 제일 정확성이 높은 feature 조합과 트리 깊이가 6일때 더 정확한 값이 나오는 것을 알았음 (실험 5~15)
+        params["max_depth"] = 6
         params["silent"] = 1
         params["seed"] = seed_val
         params["nthread"] = 16
