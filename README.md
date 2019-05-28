@@ -13,9 +13,18 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
  &nbsp; Flex Ads is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
 <br/>
-<b>프로젝트 시나리오</b><br/>
-<img align="center" width="100%" height="100%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/회의록/pictures/flexadsscenario.png"> 
+
+<b>프로젝트 시나리오</b><br/><br/>
+<img align="center" width="100%" height="100%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/master/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/architecture.jpeg"> 
+
 <br/>
+ⓐ Rekognition에 고객 얼굴 데이터를 인덱싱하여 S3에 저장한다.<br/>
+ⓑ 일정 기간을 정하여 회원의 구매내역을 XGBoost를 통해 학습하여 가장 구매 가능성이 높은 상품에 대한 광고 정보를 입력한다.<br/>
+① 회원이 Jetson에 연결된 카메라에 포착된다.<br/>
+② 딥러닝을 통해 얼굴이 detect 되고, S3로 전송된다.<br/>
+③ 클라우드에서 Rekognition을 통해 얼굴이 인식된다.<br/>
+④ 인식된 회원 정보를 이용해 송출할 광고 정보를 API Gateway를 통해 DynamoDB에서 가져온다.<br/>
+⑤ 해당하는 광고를 S3에서 가져와 디스플레이로 송출한다.<br/>
 
 ## 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
@@ -53,9 +62,9 @@ jsmin0415@gmail.com
 
 ```
 유지원
-사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 상품 담당
-AWS RDS와 DynamoDB 데이터 처리 및 관리
-Feature Generator
+사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구
+데이터 분석 및 처리
+Feature & Model Generator
 
 
 
@@ -66,9 +75,9 @@ jiwon72674@gmail.com
 
 ```
 윤지영
-사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 사용자 담당
-회의록 및 문서 작성 
-
+AWS RDS 데이터 처리 및 관리
+추천 알고리즘 수현을 위한 Feature Generator 
+회의록 및 문서 작성
 
 
 
@@ -105,3 +114,4 @@ blue8957@gmail.com
 * 기타 기록과 문서는 wiki를 사용합니다.
 * 코드는 해당하는 작업 branch에 작성되어있으며, 최종 결과가 나온 후 master로 합쳐질 예정입니다.
 * 회의록과 제출해야하는 문서는 각 평가일에 맞추어 master로 merge됩니다.
+* **최종 결과물에 대한 내용은 최종보고서에 기술되어있습니다.**

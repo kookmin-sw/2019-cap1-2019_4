@@ -12,8 +12,10 @@
  &nbsp; Flex Ads is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
 <br/>
-<b>프로젝트 시나리오</b><br/>
-<img align="center" width="100%" height="100%" src="./doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexadsscenario.png"> 
+
+<b>프로젝트 시나리오</b><br/><br/>
+<img align="center" width="100%" height="100%" src="./doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/architecture.jpeg"> 
+
 <br/>
 ⓐ Rekognition에 고객 얼굴 데이터를 인덱싱하여 S3에 저장한다.<br/>
 ⓑ 일정 기간을 정하여 회원의 구매내역을 XGBoost를 통해 학습하여 가장 구매 가능성이 높은 상품에 대한 광고 정보를 입력한다.<br/>
@@ -59,9 +61,9 @@ jsmin0415@gmail.com
 
 ```
 유지원
-사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 상품 담당
-AWS RDS와 DynamoDB 데이터 처리 및 관리
-Feature Generator
+사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구
+데이터 분석 및 처리
+Feature & Model Generator
 
 
 
@@ -72,9 +74,9 @@ jiwon72674@gmail.com
 
 ```
 윤지영
-사용자와 상품 관련 추천 서비스(알고리즘) 개발 및 연구 - 사용자 담당
-회의록 및 문서 작성 
-
+AWS RDS 데이터 처리 및 관리
+추천 알고리즘 수현을 위한 Feature Generator 
+회의록 및 문서 작성
 
 
 
