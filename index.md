@@ -7,13 +7,15 @@
 
 <img align="left" width="20%" height="20%" src="./doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/logo.png"> 
 
- &nbsp;FlexAds는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
+ &nbsp; Flex Ads는 쿠팡, 아마존닷컴과 같은 온라인 마켓에서 우리가 구매하거나 클릭한 상품들을 기반으로한 상품 추천을 오프라인 마켓으로 확장시켜, 회원제 오프라인 마켓에서의 광고 추천 시스템을 구현하는 프로젝트입니다. 클라우드 및 서버리스 환경에서 마켓을 이용하는 회원들의 얼굴을 인식하여 회원 정보를 반환하고, 추천 시스템을 통해 적합한 광고를 송출합니다. 
 <br/><br/>
- &nbsp; FlexAds is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
+ &nbsp; Flex Ads is a project to implement advertising system. On online markets like Coupang and Amazon.com, they recommend the product which customers are more likely to buy, by using the records about what they have purchased or clicked on. Extending the available range from online to offline, we apply the recommendation system on offline markets. 
 
 <br/>
+
 <b>프로젝트 시나리오</b><br/><br/>
 <img align="center" width="100%" height="100%" src="./doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/architecture.jpeg"> 
+
 <br/>
 ⓐ Rekognition에 고객 얼굴 데이터를 인덱싱하여 S3에 저장한다.<br/>
 ⓑ 일정 기간을 정하여 회원의 구매내역을 XGBoost를 통해 학습하여 가장 구매 가능성이 높은 상품에 대한 광고 정보를 입력한다.<br/>
@@ -99,9 +101,10 @@ odobenuseKR@gmail.com
 
 ```
 황수진
-TX1 / TX2 설정 및 관리
-얼굴 인식 서비스 개발 
-AWS S3 저장소 데이터 관리
+Jetson TX1 설정 및 관리
+Jeston 과 AWS S3 연동 시스템 구축 
+Web UI 개발
+
 
 blue8957@gmail.com
 ```
