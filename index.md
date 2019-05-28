@@ -27,8 +27,12 @@
 
 ## 2. 소개 영상
 사진을 클릭하면 Youtube로 넘어갑니다.<br/>
-[![flexads](./doc/회의록/pictures/flexads_youtube_thumbnail.png)](https://youtu.be/yIW5yL--zU8)<br/><br/>
+##### (1) 최종 데모 영상
+[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](
+https://youtu.be/uspIkRLVFe4)<br/><br/>
 
+##### (2) 소개 영상
+[![flexads](https://github.com/kookmin-sw/2019-cap1-2019_4/blob/upload_pictures/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/flexads_youtube_thumbnail.png)](https://youtu.be/yIW5yL--zU8)<br/><br/>
 
 ## 3. 팀 소개
 
