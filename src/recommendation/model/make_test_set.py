@@ -22,14 +22,12 @@ def make_test_set():
     test_df = test_df.drop(["reordered_count","reordered_sum","reordered_latest"], axis = 1)
     return test_df
     
-    
-## 만든 feature 붙이기 : 계속 추가 예정
+# 만든 feature merge 하기 >>> 후에 함수 앞에 import 파일명 붙여서 수정해주기,필요한 만큼 피처 merge
+# train 과 test의 모양은 같아야 함
+
 def test_result():
-    test_x = make_test_set()
-    test_x = pd.merge(test_x, dep_prob(), how="left", on=["user_id","department_id"])
-    test_x = pd.merge(test_x, aisle_prob(), how="left", on=["user_id","aisle_id"])
-    test_x = pd.merge(test_x, dow_prob(), how="left", on = ["user_id", "order_dow"])
-    test_x = pd.merge(test_x, hour_prob(), how="left", on=["user_id","order_hour_of_day"])
-    test_x = pd.merge(test_x, organic_prob(), how="left", on=["user_id","product_id"])
+    test_x = make_train_set()
+    ## test_x = pd.merge(test_x, feature function, how="left", on=["column name"])
+    ## ex : test_x = pd.merge(test_x, dep_prob(), how="left", on=["user_id","department_id"])
     
     return test_x
