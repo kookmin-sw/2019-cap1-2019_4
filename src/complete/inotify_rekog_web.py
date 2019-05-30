@@ -12,17 +12,20 @@
 # aws 연결을 위해 boto3 패키지를 가져옵니다.
 # time 체크를 위해 time, datetime 패키지를 가져옵니다.
 # multithreading 구현을 위해 threading 패키지를 가져옵니다.
+# Image resize 를 통한 Network overhead 최소화를 위한 PIL 패키지를 가져옵니다.
 import inotify.adapters
 import boto3
 import time
 import datetime
 import threading
+from PIL import Image
 
 # chrome 을 이용해 송출하기 위해 selenium 패키지를 가져옵니다.
 # serverless 시스템에서 데이터를 가져오기 위해 requests 패키지를 사용합니다.
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import requests
+
 
 # 1. 기본 설정
 # 1-1 chromedriver
@@ -92,8 +95,21 @@ def rekog(name):
         if check_now in time_list:
 	    start = time.time()
             now_index = time_list.index(check_now)
-            now_filename = filename_list[now_index]
-
+            list_filename = filename_list[now_index]
+            
+	    # 해당 filename 의 이미지를 resize_ratio 만큼 해상도를 낮추어 다시 저장합니다.
+            change_filename = list_filename[:-4] + '_resize.PNG'
+            resize_ratio = 0.8
+            img = Image.open(list_filename)
+            img_width, img_height = img.size
+            print('Image size : ', str(img_width), str(img_height))
+            
+	    # Image.ANTIALIAS 옵션을 이용해 resize_size 만큼 이미지를 조정 및 저장합니다.
+            resize_size = (img_width * resize_ratio, img_height * resize_ratio)
+            img.thumbnail(resize_size, Image.ANTIALIAS)
+            img.save(change_filename, "PNG")
+            now_filename = change_filename
+		
             # 3-2. Face image upload to S3
             # 해당 얼굴 이미지의 분석을 위해, 먼저 AWS S3 에 업로드 하는 과정이 필요합니다.
             # 이미지 파일이 write 완료되기 위해 1초 기다려주며, 해당 사항은 조금 더 smart 하게 변경이 필요하다.
