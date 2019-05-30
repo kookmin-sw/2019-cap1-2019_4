@@ -76,9 +76,9 @@ def detect_events(name):
     # event 가 생성될 때 마다, 해당 event 의 정보를 받아옵니다.
     for event in i.event_gen(yield_nones = False):
         (header, type_names, path, saved_filename) = event
-        # detectnet-camera 에서 face image 를 생성해낼 경우에는 IN_CREATE 조건이 나타납니다.
+        # detectnet-camera 에서 face image 를 생성하고, 완료되었을 때 IN_CLOSE_WRITE 조건이 나타납니다.
         # 해당 경우만 if 문을 사용하여 체크하고, filename_list 와 time_list 에 값을 저장합니다.
-        if type_names[0] == 'IN_CREATE':
+        if type_names[0] == 'IN_CLOSE_WRITE':
             check = str(saved_filename)[9:15]
             filename_list.append(saved_filename)
             time_list.append(check)
@@ -112,10 +112,9 @@ def rekog(name):
 		
             # 3-2. Face image upload to S3
             # 해당 얼굴 이미지의 분석을 위해, 먼저 AWS S3 에 업로드 하는 과정이 필요합니다.
-            # 이미지 파일이 write 완료되기 위해 1초 기다려주며, 해당 사항은 조금 더 smart 하게 변경이 필요하다.
+	    # IN_CLOSE_WRITE 는 이미지 파일의 Write 작업이 완료되었다는 의미이므로, 1초 기다려 줄 필요가 없습니다.
             upload_filename = now_filename.encode("utf-8")
             print('Uploading', upload_filename, '...')
-            time.sleep(1)
             s3.upload_file(upload_filename, bucket_name, upload_filename)
             print('Uploading to s3 complete!')
 
