@@ -85,14 +85,27 @@ def detect_events(name):
 
 # 3. Recognize face, get member info from DynamoDB, show advertisement with selenium
 def rekog(name):
+    # rekog 함수가 시작되면, 기본 페이지로 이동하며
+    # face image file 에 대한 miss, hit 을 확인하기 위한 miss_num 변수를 초기화합니다.
     print('Recognition start! with ', name)
+    driver.get(default_html)
+    miss_num = 0
     while True:
         # 3-1 time and filename check
         # multithreading 을 위해 먼저 현재 시간을 변수로 저장합니다.
+	# 추가적으로, before_now 에 now 의 1초 전 시간을 변수로 저장합니다.
         now = datetime.datetime.now()
-        check_now = now.strftime("%H%M%S")
-        # 해당 시간이 time_list 에 존재하면, 해당하는 filename 을 가져옵니다.
-        if check_now in time_list:
+        before_now = now - datetime.timedelta(seconds=1)
+	
+	# 두 시간에 대한 HMS 정보를 check_now, check_before 에 저장합니다.
+	# 1초 전의 file 까지 고려하여 시스템의 안정성을 높이기 위함입니다.
+	check_now = now.strftime("%H%M%S")
+	check_before = before_now.strftime("%H%M%S")
+	
+        # 두 시간중 하나라도 time_list 에 존재하면, 해당하는 filename 을 가져옵니다.
+        if check_now in time_list or check_before in time_list:
+	    if check_now not in time_list:
+		check_now = check_before
 	    start = time.time()
             now_index = time_list.index(check_now)
             list_filename = filename_list[now_index]
@@ -134,8 +147,12 @@ def rekog(name):
                     new_filename = 'unknown/%s'%(upload_filename)
                     s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s%s'%(bucket_name,upload_filename))
                     s3res.Object(bucket_name, upload_filename).delete()
+			
 		    # 매칭되는 얼굴이 없다는 것은, 회원이 아니라는 의미이므로 회원 등록 권유 페이지를 보여준다.
-		    driver.get(member_html)
+		    # 이 때, 현재 시간에 대한 변수도 함께 전달한다.
+		    # 의미있는 화면 송출이 존재했기 때문에, miss_num 을 0으로 초기화 한다.
+		    miss_num = 0
+		    driver.get(member_html + 'current_time=%s'%(str(now)))
                 # 매칭되는 얼굴이 있다면, 해당 얼굴의 user_id 를 반환하게 된다.
                 else:
                     print('Face found !!!')
@@ -160,10 +177,21 @@ def rekog(name):
     	            print('Elapsed time : ', time.time() - start)
 
                     # chromedriver 측에 해당 정보를 전송하여 광고가 송출되도록 한다.
+		    # 의미있는 정보가 전달되었기 때문에, miss_num 을 0으로 초기화한다.
+		    miss_num = 0
             	    driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
 
 	    # 사람이 아닌 이미지가 Rekognition 에 들어갔을 경우에, default 페이지를 보여다.
             except:
+		print('non-face image detected in detectnet')
+		driver.get(default_html)
+		time.sleep(3)
+	else:
+	    print('filelist - miss')
+	    time.sleep(2)
+	    miss_num = miss_num + 1
+	    if miss_num == 3:
+	        miss_num = 0
 		driver.get(default_html)
 
 if __name__ == "__main__":
