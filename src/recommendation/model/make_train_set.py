@@ -33,15 +33,13 @@ def make_train_set():
     
     return train_df
 
-# 만든 feature merge 하기 >>> 후에 함수 앞에 import 파일명 붙여서 수정해주기
+# 만든 feature merge 하기 >>> 후에 함수 앞에 import 파일명 붙여서 수정해주기,필요한 만큼 피처 merge
+# train 과 test의 모양은 같아야 함
 
 def train_result():
     train_x = make_train_set()
-    train_x = pd.merge(train_x, dep_prob(), how="left", on=["user_id","department_id"])
-    train_x = pd.merge(train_x, aisle_prob(), how="left", on=["user_id","aisle_id"])
-    train_x = pd.merge(train_x, dow_prob(), how="left", on = ["user_id", "order_dow"])
-    train_x = pd.merge(train_x, hour_prob(), how="left", on=["user_id","order_hour_of_day"])
-    train_x = pd.merge(train_x, organic_prob(), how="left", on=["user_id","product_id"])
+    ## train_x = pd.merge(train_x, feature function, how="left", on=["column name"])
+    ## ex : train_x = pd.merge(train_x, dep_prob(), how="left", on=["user_id","department_id"])
     
     return train_x
 
