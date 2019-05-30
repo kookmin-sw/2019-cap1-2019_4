@@ -60,6 +60,14 @@ def make_XGB(train_X, train_y, test_X, test_y=None, feature_names=None, seed_val
         else:
                 xgtest = xgb.DMatrix(test_X)
                 model = xgb.train(plst, xgtrain, num_rounds)
+                
+                #### EC2에서는 환경 설정이 필요함 ####
+                xgb.plot_tree(model)
+                fig = pyplot.gcf()
+                fig.set_size_inches(30, 30)
+                fig.savefig('tree.png')
+                
+                pyplot.show()
 
         # 모델 생성 후 예측값 찾아내기!
         pred = model.predict(xgtest)
