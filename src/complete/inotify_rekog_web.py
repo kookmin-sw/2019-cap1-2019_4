@@ -106,6 +106,8 @@ def rekog(name):
         if check_now in time_list or check_before in time_list:
 	    if check_now not in time_list:
 		check_now = check_before
+	
+	    # Latency 측정을 위한 start time 을 기록합니다.
 	    start = time.time()
             now_index = time_list.index(check_now)
             list_filename = filename_list[now_index]
@@ -186,6 +188,12 @@ def rekog(name):
 		print('non-face image detected in detectnet')
 		driver.get(default_html)
 		time.sleep(3)
+		
+	# 현재 시간에 적절한 filelist 가 존재하지 않을 경우, miss 라 한다.
+	# 이 경우에는 default 페이지를 송출해야 하는데, 이전의 페이지에서 바로 변할 경우
+	# 사용자 경험이 나쁘기 때문에 이를 위해 3회 연속 miss 가 발생할 경우 default 페이지를 송출한다.
+	# 송출 후에는 miss counter 인 miss_num 을 0으로 초기화한다.
+	# 1회 miss 발생은 2초의 Latency를 갖는다.
 	else:
 	    print('filelist - miss')
 	    time.sleep(2)
