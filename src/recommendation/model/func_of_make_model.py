@@ -24,17 +24,17 @@ seed : 난수 생성 seed
 '''
 def make_XGB(train_X, train_y, test_X, test_y=None, feature_names=None, seed_val=0):
 
-        # xgboost 모델을 만들기 위한 param 집합 > 필요에따라 수정 가능
+        # xgboost 모델을 만들기 위한 param 집합 > 직접 지정!
         params = {}
         params["objective"] = "binary:logistic"
-        params['eval_metric'] = 'logloss'
-        params["eta"] = 0.05
-        params["subsample"] = 0.7
-        params["min_child_weight"] = 10
-        params["colsample_bytree"] = 0.7
-        params["max_depth"] = 8
-        params["silent"] = 1
-        params["seed"] = seed_val
+        params['eval_metric'] = 
+        params["eta"] = 
+        params["subsample"] =
+        params["min_child_weight"] = 
+        params["colsample_bytree"] = 
+        params["max_depth"] = 
+        params["silent"] = 
+        params["seed"] = 
 
         # round 값 설정
         num_rounds = 100
@@ -48,11 +48,19 @@ def make_XGB(train_X, train_y, test_X, test_y=None, feature_names=None, seed_val
                 xgtest = xgb.DMatrix(test_X, label=test_y)
                 watchlist = [ (xgtrain,'train'), (xgtest, 'test') ]
                 model = xgb.train(plst, xgtrain, num_rounds, watchlist, early_stopping_rounds=50, verbose_eval=10)
+                
+                #### EC2에서는 환경 설정이 필요함 ####
+                xgb.plot_tree(model)
+                fig = pyplot.gcf()
+                fig.set_size_inches(30, 30)
+                fig.savefig('tree.png')
+                
+                pyplot.show()
 
         else:
                 xgtest = xgb.DMatrix(test_X)
                 model = xgb.train(plst, xgtrain, num_rounds)
 
         # 모델 생성 후 예측값 찾아내기!
-        pred_test_y = model.predict(xgtest)
-        return pred_test_y
+        pred = model.predict(xgtest)
+        return pred
