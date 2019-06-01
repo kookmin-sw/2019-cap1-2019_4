@@ -12,17 +12,20 @@
 # aws 연결을 위해 boto3 패키지를 가져옵니다.
 # time 체크를 위해 time, datetime 패키지를 가져옵니다.
 # multithreading 구현을 위해 threading 패키지를 가져옵니다.
+# Image resize 를 통한 Network overhead 최소화를 위한 PIL 패키지를 가져옵니다.
 import inotify.adapters
 import boto3
 import time
 import datetime
 import threading
+from PIL import Image
 
 # chrome 을 이용해 송출하기 위해 selenium 패키지를 가져옵니다.
 # serverless 시스템에서 데이터를 가져오기 위해 requests 패키지를 사용합니다.
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import requests
+
 
 # 1. 기본 설정
 # 1-1 chromedriver
@@ -73,33 +76,60 @@ def detect_events(name):
     # event 가 생성될 때 마다, 해당 event 의 정보를 받아옵니다.
     for event in i.event_gen(yield_nones = False):
         (header, type_names, path, saved_filename) = event
-        # detectnet-camera 에서 face image 를 생성해낼 경우에는 IN_CREATE 조건이 나타납니다.
+        # detectnet-camera 에서 face image 를 생성하고, 완료되었을 때 IN_CLOSE_WRITE 조건이 나타납니다.
         # 해당 경우만 if 문을 사용하여 체크하고, filename_list 와 time_list 에 값을 저장합니다.
-        if type_names[0] == 'IN_CREATE':
+        if type_names[0] == 'IN_CLOSE_WRITE':
             check = str(saved_filename)[9:15]
             filename_list.append(saved_filename)
             time_list.append(check)
 
 # 3. Recognize face, get member info from DynamoDB, show advertisement with selenium
 def rekog(name):
+    # rekog 함수가 시작되면, 기본 페이지로 이동하며
+    # face image file 에 대한 miss, hit 을 확인하기 위한 miss_num 변수를 초기화합니다.
     print('Recognition start! with ', name)
+    driver.get(default_html)
+    miss_num = 0
     while True:
         # 3-1 time and filename check
         # multithreading 을 위해 먼저 현재 시간을 변수로 저장합니다.
+	# 추가적으로, before_now 에 now 의 1초 전 시간을 변수로 저장합니다.
         now = datetime.datetime.now()
-        check_now = now.strftime("%H%M%S")
-        # 해당 시간이 time_list 에 존재하면, 해당하는 filename 을 가져옵니다.
-        if check_now in time_list:
+        before_now = now - datetime.timedelta(seconds=1)
+	
+	# 두 시간에 대한 HMS 정보를 check_now, check_before 에 저장합니다.
+	# 1초 전의 file 까지 고려하여 시스템의 안정성을 높이기 위함입니다.
+	check_now = now.strftime("%H%M%S")
+	check_before = before_now.strftime("%H%M%S")
+	
+        # 두 시간중 하나라도 time_list 에 존재하면, 해당하는 filename 을 가져옵니다.
+        if check_now in time_list or check_before in time_list:
+	    if check_now not in time_list:
+		check_now = check_before
+	
+	    # Latency 측정을 위한 start time 을 기록합니다.
 	    start = time.time()
             now_index = time_list.index(check_now)
-            now_filename = filename_list[now_index]
-
+            list_filename = filename_list[now_index]
+            
+	    # 해당 filename 의 이미지를 resize_ratio 만큼 해상도를 낮추어 다시 저장합니다.
+            change_filename = list_filename[:-4] + '_resize.PNG'
+            resize_ratio = 0.8
+            img = Image.open(list_filename)
+            img_width, img_height = img.size
+            print('Image size : ', str(img_width), str(img_height))
+            
+	    # Image.ANTIALIAS 옵션을 이용해 resize_size 만큼 이미지를 조정 및 저장합니다.
+            resize_size = (img_width * resize_ratio, img_height * resize_ratio)
+            img.thumbnail(resize_size, Image.ANTIALIAS)
+            img.save(change_filename, "PNG")
+            now_filename = change_filename
+		
             # 3-2. Face image upload to S3
             # 해당 얼굴 이미지의 분석을 위해, 먼저 AWS S3 에 업로드 하는 과정이 필요합니다.
-            # 이미지 파일이 write 완료되기 위해 1초 기다려주며, 해당 사항은 조금 더 smart 하게 변경이 필요하다.
+	    # IN_CLOSE_WRITE 는 이미지 파일의 Write 작업이 완료되었다는 의미이므로, 1초 기다려 줄 필요가 없습니다.
             upload_filename = now_filename.encode("utf-8")
             print('Uploading', upload_filename, '...')
-            time.sleep(1)
             s3.upload_file(upload_filename, bucket_name, upload_filename)
             print('Uploading to s3 complete!')
 
@@ -119,8 +149,12 @@ def rekog(name):
                     new_filename = 'unknown/%s'%(upload_filename)
                     s3res.Object(bucket_name, new_filename).copy_from(CopySource='%s%s'%(bucket_name,upload_filename))
                     s3res.Object(bucket_name, upload_filename).delete()
+			
 		    # 매칭되는 얼굴이 없다는 것은, 회원이 아니라는 의미이므로 회원 등록 권유 페이지를 보여준다.
-		    driver.get(member_html)
+		    # 이 때, 현재 시간에 대한 변수도 함께 전달한다.
+		    # 의미있는 화면 송출이 존재했기 때문에, miss_num 을 0으로 초기화 한다.
+		    miss_num = 0
+		    driver.get(member_html + 'current_time=%s'%(str(now)))
                 # 매칭되는 얼굴이 있다면, 해당 얼굴의 user_id 를 반환하게 된다.
                 else:
                     print('Face found !!!')
@@ -145,10 +179,27 @@ def rekog(name):
     	            print('Elapsed time : ', time.time() - start)
 
                     # chromedriver 측에 해당 정보를 전송하여 광고가 송출되도록 한다.
+		    # 의미있는 정보가 전달되었기 때문에, miss_num 을 0으로 초기화한다.
+		    miss_num = 0
             	    driver.get(base_html + 'user_id=%s&user_name=%s&product_name=%s&bucket_url=%s&product_aisle=%s&current_time=%s'%(user_id, user_name, product_name, image_url, product_aisle, str(now)))
 
 	    # 사람이 아닌 이미지가 Rekognition 에 들어갔을 경우에, default 페이지를 보여다.
             except:
+		print('non-face image detected in detectnet')
+		driver.get(default_html)
+		time.sleep(3)
+		
+	# 현재 시간에 적절한 filelist 가 존재하지 않을 경우, miss 라 한다.
+	# 이 경우에는 default 페이지를 송출해야 하는데, 이전의 페이지에서 바로 변할 경우
+	# 사용자 경험이 나쁘기 때문에 이를 위해 3회 연속 miss 가 발생할 경우 default 페이지를 송출한다.
+	# 송출 후에는 miss counter 인 miss_num 을 0으로 초기화한다.
+	# 1회 miss 발생은 2초의 Latency를 갖는다.
+	else:
+	    print('filelist - miss')
+	    time.sleep(2)
+	    miss_num = miss_num + 1
+	    if miss_num == 3:
+	        miss_num = 0
 		driver.get(default_html)
 
 if __name__ == "__main__":
