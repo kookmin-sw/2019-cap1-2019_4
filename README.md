@@ -16,8 +16,8 @@ https://kookmin-sw.github.io/2019-cap1-2019_4
 
 <b>프로젝트 시나리오</b><br/><br/>
 <img align="center" width="100%" height="100%" src="https://github.com/kookmin-sw/2019-cap1-2019_4/blob/master/doc/%ED%9A%8C%EC%9D%98%EB%A1%9D/pictures/architecture.jpeg"> 
-<br/>
-ⓐ Rekognition에 고객 얼굴 데이터를 인덱싱하여 S3에 저장한다.<br/>
+<br/><br/>
+ⓐ 딥러닝을 통해 얼굴 데이터셋을 생성하고, 회원 ID와 함게 Rekognition에 얼굴을 등록한다.<br/>
 ⓑ 일정 기간을 정하여 회원의 구매내역을 XGBoost를 통해 학습하여 가장 구매 가능성이 높은 상품에 대한 광고 정보를 입력한다.<br/>
 ① 회원이 Jetson에 연결된 카메라에 포착된다.<br/>
 ② 딥러닝을 통해 얼굴이 detect 되고, S3로 전송된다.<br/>
